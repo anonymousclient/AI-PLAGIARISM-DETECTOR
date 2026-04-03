@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2><i class="bi bi-file-earmark-bar-graph me-2 text-success"></i>Submissions</h2>
+        <p class="text-muted mb-0">
+            <strong>{{ assignment.subject }}</strong> — {{ assignment.title }}
+        </p>
+    </div>
+    <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Back
+    </a>
+</div>
+
+<hr>
+
+{% if submissions %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>File Name</th>
+                    <th>Similarity %</th>
+                    <th>Copied From</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sub in submissions %}
+                <tr class="{{ 'table-danger' if sub.highest_similarity_score >= 60 else '' }}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ sub.student_name }}</td>
+                    <td>{{ sub.filename }}</td>
+                    <td>
+                        <strong>{{ sub.highest_similarity_score }}%</strong>
+                    </td>
+                    <td>{{ sub.similar_student_name }}</td>
+                    <td>
+                        <span class="badge bg-{{ sub.status_color }}">
+                            {{ sub.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+        <p class="mt-2">No submissions yet for this assignment.</p>
+    </div>
+{% endif %}
+{% endblock %}
