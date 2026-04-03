@@ -1,44 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1 class="display-5 fw-bold text-primary mb-3">
-        <i class="bi bi-shield-check"></i> AI Assignment Plagiarism Checker
+<div class="text-center mt-5 fade-in">
+    <h1 class="hero-title mb-3">
+        <i class="bi bi-shield-check" style="-webkit-text-fill-color: unset;"></i><br>
+        AI Plagiarism Checker
     </h1>
-    <p class="lead text-muted mb-5">
-        Upload assignments, detect plagiarism, and maintain academic integrity.
+    <p class="hero-subtitle mb-5">
+        Upload assignments, detect plagiarism, and maintain academic integrity — powered by AI.
     </p>
 
     <div class="row justify-content-center g-4">
         <!-- Login as Student -->
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body text-center p-5">
-                    <div class="mb-3">
-                        <i class="bi bi-mortarboard-fill text-primary" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4 class="card-title">Student</h4>
-                    <p class="text-muted">Upload your assignments and track submissions.</p>
-                    <a href="{{ url_for('login', role='student') }}" class="btn btn-primary btn-lg px-4">
-                        Login as Student
-                    </a>
+        <div class="col-md-4 fade-in fade-in-delay-1">
+            <div class="glass-card p-5 text-center h-100">
+                <div class="role-icon student">
+                    <i class="bi bi-mortarboard-fill"></i>
                 </div>
+                <h4 class="mb-2">Student</h4>
+                <p class="text-muted mb-4" style="font-size: 0.9rem;">Upload your assignments and track submissions.</p>
+                <a href="{{ url_for('login', role='student') }}" class="btn btn-primary btn-lg px-4 w-100">
+                    Login as Student
+                </a>
             </div>
         </div>
 
         <!-- Login as Faculty -->
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body text-center p-5">
-                    <div class="mb-3">
-                        <i class="bi bi-person-workspace text-success" style="font-size: 3rem;"></i>
-                    </div>
-                    <h4 class="card-title">Faculty</h4>
-                    <p class="text-muted">Create assignments and review plagiarism reports.</p>
-                    <a href="{{ url_for('login', role='faculty') }}" class="btn btn-success btn-lg px-4">
-                        Login as Faculty
-                    </a>
+        <div class="col-md-4 fade-in fade-in-delay-2">
+            <div class="glass-card p-5 text-center h-100">
+                <div class="role-icon faculty">
+                    <i class="bi bi-person-workspace"></i>
                 </div>
+                <h4 class="mb-2">Faculty</h4>
+                <p class="text-muted mb-4" style="font-size: 0.9rem;">Create assignments and review plagiarism reports.</p>
+                <a href="{{ url_for('login', role='faculty') }}" class="btn btn-success btn-lg px-4 w-100">
+                    Login as Faculty
+                </a>
             </div>
         </div>
     </div>

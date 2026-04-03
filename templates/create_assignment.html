@@ -1,36 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center mt-4">
+<div class="row justify-content-center mt-4 fade-in">
     <div class="col-md-6">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h3 class="mb-4">
-                    <i class="bi bi-plus-circle text-success me-2"></i>Create Assignment
-                </h3>
+        <div class="glass-card p-4">
+            <h3 class="mb-4">
+                <i class="bi bi-plus-circle me-2" style="color: var(--accent-green);"></i>Create Assignment
+            </h3>
 
-                <form method="POST">
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Subject Name</label>
-                        <input type="text" class="form-control" id="subject" name="subject"
-                               placeholder="e.g., Mathematics" required>
-                    </div>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject Name</label>
+                    <input type="text" class="form-control" id="subject" name="subject"
+                           placeholder="e.g., Mathematics" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Assignment Title</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="e.g., Algebra Assignment" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Assignment Title</label>
+                    <input type="text" class="form-control" id="title" name="title"
+                           placeholder="e.g., Algebra Assignment" required>
+                </div>
 
-                    <button type="submit" class="btn btn-success w-100">
-                        <i class="bi bi-check-circle me-1"></i> Create Assignment
-                    </button>
-                </form>
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="bi bi-check-circle me-1"></i> Create Assignment
+                </button>
+            </form>
 
-                <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-outline-secondary w-100 mt-2">
-                    <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
-                </a>
-            </div>
+            <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-outline-secondary w-100 mt-2">
+                <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+            </a>
         </div>
     </div>
 </div>

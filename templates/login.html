@@ -1,40 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-5 fade-in">
     <div class="col-md-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h3 class="text-center mb-4">
-                    <i class="bi bi-box-arrow-in-right text-primary me-2"></i>Login
-                </h3>
-                <p class="text-center text-muted mb-4">
-                    Logging in as <span class="badge bg-{{ 'primary' if role == 'student' else 'success' }}">{{ role | capitalize }}</span>
-                </p>
+        <div class="glass-card p-4">
+            <h3 class="text-center mb-3">
+                <i class="bi bi-box-arrow-in-right me-2" style="color: var(--accent-cyan);"></i>Login
+            </h3>
+            <p class="text-center mb-4">
+                Logging in as
+                <span class="badge bg-{{ 'primary' if role == 'student' else 'success' }}">{{ role | capitalize }}</span>
+            </p>
 
-                <form method="POST" action="{{ url_for('login') }}">
-                    <input type="hidden" name="role" value="{{ role }}">
+            <form method="POST" action="{{ url_for('login') }}">
+                <input type="hidden" name="role" value="{{ role }}">
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               placeholder="Enter your email" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="Enter your email" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-wrapper">
                         <input type="password" class="form-control" id="password" name="password"
                                placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
+                </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                </button>
 
-                    <p class="text-center text-muted">
-                        Don't have an account?
-                        <a href="{{ url_for('register', role=role) }}">Register here</a>
-                    </p>
-                </form>
-            </div>
+                <p class="text-center" style="font-size: 0.9rem;">
+                    <span class="text-muted">Don't have an account?</span>
+                    <a href="{{ url_for('register', role=role) }}">Register here</a>
+                </p>
+            </form>
         </div>
     </div>
 </div>

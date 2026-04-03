@@ -1,46 +1,52 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-5 fade-in">
     <div class="col-md-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h3 class="text-center mb-4">
-                    <i class="bi bi-person-plus-fill text-primary me-2"></i>Register
-                </h3>
-                <p class="text-center text-muted mb-4">
-                    Registering as <span class="badge bg-{{ 'primary' if role == 'student' else 'success' }}">{{ role | capitalize }}</span>
-                </p>
+        <div class="glass-card p-4">
+            <h3 class="text-center mb-3">
+                <i class="bi bi-person-plus-fill me-2" style="color: var(--accent-cyan);"></i>Register
+            </h3>
+            <p class="text-center mb-4">
+                Registering as
+                <span class="badge bg-{{ 'primary' if role == 'student' else 'success' }}">{{ role | capitalize }}</span>
+            </p>
 
-                <form method="POST" action="{{ url_for('register') }}">
-                    <input type="hidden" name="role" value="{{ role }}">
+            <form method="POST" action="{{ url_for('register') }}">
+                <input type="hidden" name="role" value="{{ role }}">
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name"
-                               placeholder="Enter your full name" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Enter your full name" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               placeholder="Enter your email" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="Enter your email" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="password-wrapper">
                         <input type="password" class="form-control" id="password" name="password"
                                placeholder="Create a password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
+                </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    <i class="bi bi-person-plus me-1"></i> Register
+                </button>
 
-                    <p class="text-center text-muted">
-                        Already have an account?
-                        <a href="{{ url_for('login', role=role) }}">Login here</a>
-                    </p>
-                </form>
-            </div>
+                <p class="text-center" style="font-size: 0.9rem;">
+                    <span class="text-muted">Already have an account?</span>
+                    <a href="{{ url_for('login', role=role) }}">Login here</a>
+                </p>
+            </form>
         </div>
     </div>
 </div>

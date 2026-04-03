@@ -29,12 +29,12 @@ ALLOWED_EXTENSIONS = {"pdf", "docx"}
 # ─── Logging Setup ─────────────────────────────────────────────────
 logging.basicConfig(
     filename="app.log",
-    level=logging.WARNING,
+    level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
-# ─── Rate Limiting ─────────────────────────────────────────────────
+# ─── Rate Limiting (relaxed — only strict on login/register) ──────
 try:
     from flask_limiter import Limiter
     from flask_limiter.util import get_remote_address
@@ -42,23 +42,13 @@ try:
     limiter = Limiter(
         get_remote_address,
         app=app,
-        default_limits=["200 per day", "50 per hour"],
+        default_limits=["50 per minute"],   # relaxed global limit
         storage_uri="memory://",
     )
+    print("[✓] Flask-Limiter loaded — rate limiting active.")
 except ImportError:
-    # flask-limiter not installed — create a dummy decorator so routes still work
     limiter = None
-    logger.warning("flask-limiter not installed. Rate limiting is DISABLED.")
-
-
-def rate_limit(limit_string):
-    """Apply rate limit if flask-limiter is available, otherwise no-op."""
-    if limiter:
-        return limiter.limit(limit_string)
-    # Return a no-op decorator
-    def decorator(f):
-        return f
-    return decorator
+    print("[!] flask-limiter not installed — rate limiting disabled.")
 
 
 # ─── Input Validation Helpers ──────────────────────────────────────
@@ -72,9 +62,7 @@ def sanitize_text(text):
     """Remove potentially dangerous characters from user input."""
     if not text:
         return ""
-    # Strip leading/trailing whitespace and limit length
     text = text.strip()[:200]
-    # Remove any HTML/script tags
     text = re.sub(r"<[^>]*>", "", text)
     return text
 
@@ -115,7 +103,7 @@ def file_too_large(e):
 @app.errorhandler(429)
 def rate_limit_exceeded(e):
     logger.warning(f"Rate limit exceeded from IP: {request.remote_addr}")
-    flash("Too many requests. Please wait and try again.", "danger")
+    flash("Too many attempts. Please try again later.", "danger")
     return redirect(request.referrer or url_for("index"))
 
 
@@ -134,8 +122,9 @@ def index():
 
 # ─── Register ─────────────────────────────────────────────────────
 @app.route("/register", methods=["GET", "POST"])
-@rate_limit("10 per minute")
 def register():
+    print(f"[DEBUG] /register hit — method={request.method}")
+
     if request.method == "POST":
         name = sanitize_text(request.form.get("name"))
         email = request.form.get("email", "").strip().lower()
@@ -169,7 +158,7 @@ def register():
         user = {
             "name": name,
             "email": email,
-            "password": password,  # Plain text (as per requirements)
+            "password": password,
             "role": role,
         }
         users_collection.insert_one(user)
@@ -182,8 +171,9 @@ def register():
 
 # ─── Login ─────────────────────────────────────────────────────────
 @app.route("/login", methods=["GET", "POST"])
-@rate_limit("5 per minute")
 def login():
+    print(f"[DEBUG] /login hit — method={request.method}")
+
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
@@ -192,10 +182,9 @@ def login():
         # ── Input Validation ──
         if not is_valid_email(email) or not password or not is_valid_role(role):
             flash("Invalid email, password, or role.", "danger")
-            logger.warning(f"Invalid login attempt from IP: {request.remote_addr}")
             return redirect(url_for("login", role=role))
 
-        # Find user in MongoDB
+        # Find user in MongoDB (database only — no external API calls)
         user = users_collection.find_one({
             "email": email,
             "password": password,
@@ -207,13 +196,15 @@ def login():
             session["user_name"] = user["name"]
             session["user_role"] = user["role"]
             flash(f"Welcome, {user['name']}!", "success")
+            print(f"[DEBUG] Login success for {email} as {role}")
 
             if role == "student":
                 return redirect(url_for("student_dashboard"))
             else:
                 return redirect(url_for("faculty_dashboard"))
         else:
-            logger.warning(f"Failed login for email: {email} from IP: {request.remote_addr}")
+            logger.warning(f"Failed login for {email} from {request.remote_addr}")
+            print(f"[DEBUG] Login FAILED for {email}")
             flash("Invalid email, password, or role.", "danger")
             return redirect(url_for("login", role=role))
 
@@ -236,14 +227,12 @@ def student_dashboard():
         flash("Please login as a student.", "warning")
         return redirect(url_for("login", role="student"))
 
-    # Fetch all assignments from MongoDB
     assignments = list(assignments_collection.find())
     return render_template("student_dashboard.html", assignments=assignments)
 
 
 # ─── Upload Assignment (Student) ──────────────────────────────────
 @app.route("/upload/<assignment_id>", methods=["GET", "POST"])
-@rate_limit("10 per minute")
 def upload(assignment_id):
     if not login_required(role="student"):
         flash("Please login as a student.", "warning")
@@ -256,7 +245,6 @@ def upload(assignment_id):
         flash("Invalid assignment.", "danger")
         return redirect(url_for("student_dashboard"))
 
-    # Fetch assignment details
     assignment = assignments_collection.find_one({"_id": obj_id})
     if not assignment:
         flash("Assignment not found.", "danger")
@@ -273,9 +261,8 @@ def upload(assignment_id):
             flash("Invalid file type. Only PDF and DOCX files are allowed.", "danger")
             return redirect(request.url)
 
-        # Sanitize and rename file: studentID_assignmentID_filename
         student_id = session["user_id"]
-        original_filename = secure_filename(file.filename)  # Sanitize filename
+        original_filename = secure_filename(file.filename)
         new_filename = f"{student_id}_{assignment_id}_{original_filename}"
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], new_filename)
 
@@ -289,7 +276,7 @@ def upload(assignment_id):
         # Extract text from file
         extracted_text = extract_text(file_path)
 
-        # ── Compare with previous submissions for same assignment ──
+        # Compare with previous submissions for same assignment
         previous_submissions = list(submissions_collection.find({
             "assignment_id": assignment_id,
             "student_id": {"$ne": student_id},
@@ -311,7 +298,6 @@ def upload(assignment_id):
                     highest_score = score
                     most_similar_student = prev["student_id"]
 
-        # Save submission to MongoDB
         submission = {
             "student_id": student_id,
             "student_name": session.get("user_name", "Unknown"),
@@ -339,7 +325,6 @@ def faculty_dashboard():
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
-    # Fetch assignments created by this faculty
     faculty_id = session["user_id"]
     assignments = list(assignments_collection.find({"created_by": faculty_id}))
     return render_template("faculty_dashboard.html", assignments=assignments)
@@ -347,7 +332,6 @@ def faculty_dashboard():
 
 # ─── Create Assignment (Faculty) ──────────────────────────────────
 @app.route("/create_assignment", methods=["GET", "POST"])
-@rate_limit("10 per minute")
 def create_assignment():
     if not login_required(role="faculty"):
         flash("Please login as faculty.", "warning")
@@ -358,7 +342,6 @@ def create_assignment():
         title = sanitize_text(request.form.get("title"))
         faculty_id = session["user_id"]
 
-        # ── Input Validation ──
         if not subject or len(subject) < 2:
             flash("Subject name must be at least 2 characters.", "danger")
             return redirect(request.url)
@@ -387,31 +370,26 @@ def view_submissions(assignment_id):
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
-    # Validate assignment_id format
     try:
         obj_id = ObjectId(assignment_id)
     except Exception:
         flash("Invalid assignment.", "danger")
         return redirect(url_for("faculty_dashboard"))
 
-    # Fetch assignment details
     assignment = assignments_collection.find_one({"_id": obj_id})
     if not assignment:
         flash("Assignment not found.", "danger")
         return redirect(url_for("faculty_dashboard"))
 
-    # Fetch all submissions sorted by highest similarity
     submissions = list(submissions_collection.find(
         {"assignment_id": str(assignment_id)}
     ).sort("highest_similarity_score", -1))
 
-    # Add status and color info to each submission
     for sub in submissions:
         score = sub.get("highest_similarity_score", 0)
         sub["status"] = get_status(score)
         sub["status_color"] = get_status_color(score)
 
-        # Get the name of the most similar student
         if sub.get("most_similar_student"):
             try:
                 similar_user = users_collection.find_one(
