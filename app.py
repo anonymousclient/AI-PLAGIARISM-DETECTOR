@@ -1,22 +1,87 @@
 import os
+import re
+import logging
 from datetime import datetime
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from bson.objectid import ObjectId
+from werkzeug.utils import secure_filename
 from db import users_collection, assignments_collection, submissions_collection
 from utils.text_extractor import extract_text
 from utils.similarity import calculate_similarity, get_status, get_status_color
 
+# Load environment variables
+load_dotenv()
+
 # ─── Flask App Setup ───────────────────────────────────────────────
 app = Flask(__name__)
-app.secret_key = "plagiarism_checker_secret_key"
+app.secret_key = os.getenv("SECRET_KEY", "change-this-default-key")
 
 # Upload folder config
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB max file size
 
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
+
+# ─── Logging Setup ─────────────────────────────────────────────────
+logging.basicConfig(
+    filename="app.log",
+    level=logging.WARNING,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+# ─── Rate Limiting ─────────────────────────────────────────────────
+try:
+    from flask_limiter import Limiter
+    from flask_limiter.util import get_remote_address
+
+    limiter = Limiter(
+        get_remote_address,
+        app=app,
+        default_limits=["200 per day", "50 per hour"],
+        storage_uri="memory://",
+    )
+except ImportError:
+    # flask-limiter not installed — create a dummy decorator so routes still work
+    limiter = None
+    logger.warning("flask-limiter not installed. Rate limiting is DISABLED.")
+
+
+def rate_limit(limit_string):
+    """Apply rate limit if flask-limiter is available, otherwise no-op."""
+    if limiter:
+        return limiter.limit(limit_string)
+    # Return a no-op decorator
+    def decorator(f):
+        return f
+    return decorator
+
+
+# ─── Input Validation Helpers ──────────────────────────────────────
+def is_valid_email(email):
+    """Basic email format validation."""
+    pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    return re.match(pattern, email) is not None
+
+
+def sanitize_text(text):
+    """Remove potentially dangerous characters from user input."""
+    if not text:
+        return ""
+    # Strip leading/trailing whitespace and limit length
+    text = text.strip()[:200]
+    # Remove any HTML/script tags
+    text = re.sub(r"<[^>]*>", "", text)
+    return text
+
+
+def is_valid_role(role):
+    """Ensure role is only student or faculty."""
+    return role in ("student", "faculty")
 
 
 def allowed_file(filename):
@@ -34,6 +99,33 @@ def login_required(role=None):
     return True
 
 
+# ─── Error Handlers ────────────────────────────────────────────────
+@app.errorhandler(404)
+def not_found(e):
+    flash("Page not found.", "warning")
+    return redirect(url_for("index"))
+
+
+@app.errorhandler(413)
+def file_too_large(e):
+    flash("File is too large. Maximum size is 10 MB.", "danger")
+    return redirect(request.referrer or url_for("index"))
+
+
+@app.errorhandler(429)
+def rate_limit_exceeded(e):
+    logger.warning(f"Rate limit exceeded from IP: {request.remote_addr}")
+    flash("Too many requests. Please wait and try again.", "danger")
+    return redirect(request.referrer or url_for("index"))
+
+
+@app.errorhandler(500)
+def internal_error(e):
+    logger.error(f"Internal server error: {e}")
+    flash("Something went wrong. Please try again later.", "danger")
+    return redirect(url_for("index"))
+
+
 # ─── Homepage ──────────────────────────────────────────────────────
 @app.route("/")
 def index():
@@ -42,12 +134,30 @@ def index():
 
 # ─── Register ─────────────────────────────────────────────────────
 @app.route("/register", methods=["GET", "POST"])
+@rate_limit("10 per minute")
 def register():
     if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        password = request.form.get("password")
-        role = request.form.get("role")
+        name = sanitize_text(request.form.get("name"))
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+        role = request.form.get("role", "")
+
+        # ── Input Validation ──
+        if not name or len(name) < 2:
+            flash("Name must be at least 2 characters.", "danger")
+            return redirect(request.url)
+
+        if not is_valid_email(email):
+            flash("Please enter a valid email address.", "danger")
+            return redirect(request.url)
+
+        if len(password) < 4:
+            flash("Password must be at least 4 characters.", "danger")
+            return redirect(request.url)
+
+        if not is_valid_role(role):
+            flash("Invalid role selected.", "danger")
+            return redirect(request.url)
 
         # Check if user already exists
         existing_user = users_collection.find_one({"email": email})
@@ -72,11 +182,18 @@ def register():
 
 # ─── Login ─────────────────────────────────────────────────────────
 @app.route("/login", methods=["GET", "POST"])
+@rate_limit("5 per minute")
 def login():
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        role = request.form.get("role")
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+        role = request.form.get("role", "")
+
+        # ── Input Validation ──
+        if not is_valid_email(email) or not password or not is_valid_role(role):
+            flash("Invalid email, password, or role.", "danger")
+            logger.warning(f"Invalid login attempt from IP: {request.remote_addr}")
+            return redirect(url_for("login", role=role))
 
         # Find user in MongoDB
         user = users_collection.find_one({
@@ -96,6 +213,7 @@ def login():
             else:
                 return redirect(url_for("faculty_dashboard"))
         else:
+            logger.warning(f"Failed login for email: {email} from IP: {request.remote_addr}")
             flash("Invalid email, password, or role.", "danger")
             return redirect(url_for("login", role=role))
 
@@ -125,13 +243,21 @@ def student_dashboard():
 
 # ─── Upload Assignment (Student) ──────────────────────────────────
 @app.route("/upload/<assignment_id>", methods=["GET", "POST"])
+@rate_limit("10 per minute")
 def upload(assignment_id):
     if not login_required(role="student"):
         flash("Please login as a student.", "warning")
         return redirect(url_for("login", role="student"))
 
+    # Validate assignment_id format
+    try:
+        obj_id = ObjectId(assignment_id)
+    except Exception:
+        flash("Invalid assignment.", "danger")
+        return redirect(url_for("student_dashboard"))
+
     # Fetch assignment details
-    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    assignment = assignments_collection.find_one({"_id": obj_id})
     if not assignment:
         flash("Assignment not found.", "danger")
         return redirect(url_for("student_dashboard"))
@@ -147,12 +273,18 @@ def upload(assignment_id):
             flash("Invalid file type. Only PDF and DOCX files are allowed.", "danger")
             return redirect(request.url)
 
-        # Rename file: studentID_assignmentID_filename
+        # Sanitize and rename file: studentID_assignmentID_filename
         student_id = session["user_id"]
-        original_filename = file.filename
+        original_filename = secure_filename(file.filename)  # Sanitize filename
         new_filename = f"{student_id}_{assignment_id}_{original_filename}"
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], new_filename)
-        file.save(file_path)
+
+        try:
+            file.save(file_path)
+        except Exception as e:
+            logger.error(f"File save failed: {e}")
+            flash("File upload failed. Please try again.", "danger")
+            return redirect(request.url)
 
         # Extract text from file
         extracted_text = extract_text(file_path)
@@ -215,15 +347,25 @@ def faculty_dashboard():
 
 # ─── Create Assignment (Faculty) ──────────────────────────────────
 @app.route("/create_assignment", methods=["GET", "POST"])
+@rate_limit("10 per minute")
 def create_assignment():
     if not login_required(role="faculty"):
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
     if request.method == "POST":
-        subject = request.form.get("subject")
-        title = request.form.get("title")
+        subject = sanitize_text(request.form.get("subject"))
+        title = sanitize_text(request.form.get("title"))
         faculty_id = session["user_id"]
+
+        # ── Input Validation ──
+        if not subject or len(subject) < 2:
+            flash("Subject name must be at least 2 characters.", "danger")
+            return redirect(request.url)
+
+        if not title or len(title) < 2:
+            flash("Assignment title must be at least 2 characters.", "danger")
+            return redirect(request.url)
 
         assignment = {
             "subject": subject,
@@ -245,8 +387,15 @@ def view_submissions(assignment_id):
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
+    # Validate assignment_id format
+    try:
+        obj_id = ObjectId(assignment_id)
+    except Exception:
+        flash("Invalid assignment.", "danger")
+        return redirect(url_for("faculty_dashboard"))
+
     # Fetch assignment details
-    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
+    assignment = assignments_collection.find_one({"_id": obj_id})
     if not assignment:
         flash("Assignment not found.", "danger")
         return redirect(url_for("faculty_dashboard"))
@@ -264,10 +413,13 @@ def view_submissions(assignment_id):
 
         # Get the name of the most similar student
         if sub.get("most_similar_student"):
-            similar_user = users_collection.find_one(
-                {"_id": ObjectId(sub["most_similar_student"])}
-            )
-            sub["similar_student_name"] = similar_user["name"] if similar_user else "Unknown"
+            try:
+                similar_user = users_collection.find_one(
+                    {"_id": ObjectId(sub["most_similar_student"])}
+                )
+                sub["similar_student_name"] = similar_user["name"] if similar_user else "Unknown"
+            except Exception:
+                sub["similar_student_name"] = "Unknown"
         else:
             sub["similar_student_name"] = "N/A"
 

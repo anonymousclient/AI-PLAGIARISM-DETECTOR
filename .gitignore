@@ -13,6 +13,8 @@ build/
 venv/
 env/
 .venv/
+
+# ─── Secrets (CRITICAL — never commit) ───
 .env
 
 # ─── Flask ───
@@ -22,6 +24,10 @@ instance/
 
 # ─── Uploads (user files — don't push to GitHub) ───
 uploads/
+
+# ─── Logs ───
+*.log
+app.log
 
 # ─── IDE / Editor ───
 .vscode/
@@ -33,6 +39,5 @@ uploads/
 Thumbs.db
 
 # ─── OS ───
-*.log
 *.bak
 *.tmp
