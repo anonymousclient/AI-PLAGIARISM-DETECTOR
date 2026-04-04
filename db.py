@@ -1,15 +1,12 @@
 import os
-from dotenv import load_dotenv
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load .env for local development
 load_dotenv()
 
-# MongoDB Atlas connection (loaded from .env)
-MONGO_URI = os.getenv("MONGO_URI")
-
-if not MONGO_URI:
-    raise ValueError("MONGO_URI not found. Please create a .env file with your MongoDB connection string.")
+# MongoDB Atlas connection (from environment variables)
+MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://dv9425959992_db_user:HTy8VMrPnZOhC2jh@cluster0.jvtk0ev.mongodb.net/?appName=Cluster0")
 
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)
@@ -21,3 +18,5 @@ db = client["plagiarism_system"]
 users_collection = db["users"]
 assignments_collection = db["assignments"]
 submissions_collection = db["submissions"]
+classes_collection = db["classes"]
+student_classes_collection = db["student_classes"]

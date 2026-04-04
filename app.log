@@ -1,0 +1,1457 @@
+2026-04-03 11:50:27,086 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-03 11:50:27,086 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-03 11:51:17,294 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:17] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:17,469 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:51:17,859 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:17] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:18,186 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:18] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:29,473 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:29] "GET /login?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:51:29,525 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:51:29,580 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:29] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:29,646 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:29] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:39,621 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:39] "GET /register?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:51:39,672 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:51:39,694 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:39] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:39,709 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:39] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:52,864 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:52] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:52,965 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:52] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:53,754 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:53] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:53,776 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:53] "GET / HTTP/1.1" 200 -
+2026-04-03 11:51:55,433 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:55] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 11:51:55,497 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:51:55,578 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:55] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:51:55,718 - INFO - 127.0.0.1 - - [03/Apr/2026 11:51:55] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:18,954 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:18] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:19,026 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:19] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:19,957 - WARNING - Rate limit exceeded from IP: 127.0.0.1
+2026-04-03 11:52:19,960 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:19] "[32mGET /login?role=student HTTP/1.1[0m" 302 -
+2026-04-03 11:52:19,971 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:19] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:20,060 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:20,092 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:20] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:20,135 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:20] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:22,157 - WARNING - Rate limit exceeded from IP: 127.0.0.1
+2026-04-03 11:52:22,163 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:22] "[32mGET /login?role=student HTTP/1.1[0m" 302 -
+2026-04-03 11:52:22,177 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:22] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:22,245 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:22,274 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:22] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:22,296 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:22] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:24,590 - WARNING - Rate limit exceeded from IP: 127.0.0.1
+2026-04-03 11:52:24,593 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:24] "[32mGET /login?role=student HTTP/1.1[0m" 302 -
+2026-04-03 11:52:24,603 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:24] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:24,684 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:24,716 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:24] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:24,751 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:24] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:27,275 - WARNING - Rate limit exceeded from IP: 127.0.0.1
+2026-04-03 11:52:27,278 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:27] "[32mGET /login?role=student HTTP/1.1[0m" 302 -
+2026-04-03 11:52:27,288 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:27] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:27,374 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:27,399 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:27] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:27,417 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:27] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:30,040 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:30] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:30,085 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:30] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:30,105 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:30] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:31,555 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:31] "GET /login?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:52:31,602 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:31,624 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:31] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:31,643 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:31] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:33,028 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:52:33,333 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:52:33,335 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:33] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:52:46,605 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:52:46,656 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:52:46,658 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:46] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:52:48,020 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:52:48,057 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:52:48,059 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:48] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:52:57,119 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:57] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:57,253 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:57] "GET / HTTP/1.1" 200 -
+2026-04-03 11:52:58,341 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:58] "GET /login?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:52:58,400 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:52:58,425 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:58] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:52:58,449 - INFO - 127.0.0.1 - - [03/Apr/2026 11:52:58] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:08,914 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:53:08,930 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:53:08,932 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:08] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:53:10,768 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:10] "GET /register?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:53:10,871 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:53:11,124 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:11] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:53:11,165 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:11] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:32,897 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:32] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:53:33,250 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:33] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:34,280 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:34] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:53:34,349 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:34] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:35,098 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:35] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:35,163 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:35] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:53:35,263 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:35] "GET / HTTP/1.1" 200 -
+2026-04-03 11:53:38,414 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:53:38,422 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:53:38,423 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:53:48,284 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 163, in register
+    existing_user = users_collection.find_one({"email": email})
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:53:48,290 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:53:48,291 - INFO - 127.0.0.1 - - [03/Apr/2026 11:53:48] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-03 11:54:28,599 - INFO - 127.0.0.1 - - [03/Apr/2026 11:54:28] "GET /login?role=faculty HTTP/1.1" 200 -
+2026-04-03 11:54:28,647 - INFO - 127.0.0.1 - - [03/Apr/2026 11:54:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:54:28,673 - INFO - 127.0.0.1 - - [03/Apr/2026 11:54:28] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:54:28,727 - INFO - 127.0.0.1 - - [03/Apr/2026 11:54:28] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:07,043 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:07] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:07,112 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:07] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:08,294 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:08] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 11:55:08,347 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:55:08,377 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:08] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:08,392 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:08] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:09,338 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:09] "GET /register?role=student HTTP/1.1" 200 -
+2026-04-03 11:55:09,388 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 11:55:09,419 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:09] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:09,438 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:09] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:22,481 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:22] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:22,537 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:22] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:23,296 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:23] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:23,315 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:23] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:26,561 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:26] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:26,633 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:26] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 11:55:26,659 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:26] "GET / HTTP/1.1" 200 -
+2026-04-03 11:55:29,771 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:55:29,779 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:55:29,780 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:29] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:55:33,200 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 199, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:55:33,208 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:55:33,209 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:33] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-03 11:55:47,997 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask_limiter\_limits.py", line 326, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\code\final minor\app.py", line 163, in register
+    existing_user = users_collection.find_one({"email": email})
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5c26cf62e1e5e2a79906, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 11:55:48,005 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 11:55:48,007 - INFO - 127.0.0.1 - - [03/Apr/2026 11:55:48] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-03 12:05:10,197 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-03 12:05:10,198 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-03 12:05:50,169 - INFO - 127.0.0.1 - - [03/Apr/2026 12:05:50] "GET / HTTP/1.1" 200 -
+2026-04-03 12:05:50,440 - INFO - 127.0.0.1 - - [03/Apr/2026 12:05:50] "GET /static/style.css HTTP/1.1" 200 -
+2026-04-03 12:05:51,913 - INFO - 127.0.0.1 - - [03/Apr/2026 12:05:51] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:05:51,938 - INFO - 127.0.0.1 - - [03/Apr/2026 12:05:51] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:24,145 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:24] "GET /login?role=faculty HTTP/1.1" 200 -
+2026-04-03 12:06:24,194 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:06:24,272 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:24] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:06:24,289 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:24] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:29,375 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:29] "GET /register?role=faculty HTTP/1.1" 200 -
+2026-04-03 12:06:29,420 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:06:29,468 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:29] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:06:29,594 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:29] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:37,752 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:37] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:37,805 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:06:37,956 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:37] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:06:38,171 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:38] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:47,698 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:47] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:06:47,743 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:06:47,767 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:47] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:06:47,876 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:47] "GET / HTTP/1.1" 200 -
+2026-04-03 12:06:50,231 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:50] "GET /register?role=student HTTP/1.1" 200 -
+2026-04-03 12:06:50,273 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:06:50,301 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:50] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:06:50,335 - INFO - 127.0.0.1 - - [03/Apr/2026 12:06:50] "GET / HTTP/1.1" 200 -
+2026-04-03 12:07:18,374 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:18] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:07:18,460 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:18] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:07:18,832 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:18] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:07:19,120 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:19] "GET / HTTP/1.1" 200 -
+2026-04-03 12:07:54,899 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:54] "GET /register?role=student HTTP/1.1" 200 -
+2026-04-03 12:07:54,955 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:07:55,002 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:55] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:07:55,057 - INFO - 127.0.0.1 - - [03/Apr/2026 12:07:55] "GET / HTTP/1.1" 200 -
+2026-04-03 12:08:29,615 - INFO - 127.0.0.1 - - [03/Apr/2026 12:08:29] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:08:29,868 - INFO - 127.0.0.1 - - [03/Apr/2026 12:08:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:08:30,005 - INFO - 127.0.0.1 - - [03/Apr/2026 12:08:30] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:08:30,181 - INFO - 127.0.0.1 - - [03/Apr/2026 12:08:30] "GET / HTTP/1.1" 200 -
+2026-04-03 12:10:12,882 - INFO - 127.0.0.1 - - [03/Apr/2026 12:10:12] "GET /register?role=student HTTP/1.1" 200 -
+2026-04-03 12:10:13,032 - INFO - 127.0.0.1 - - [03/Apr/2026 12:10:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:10:13,324 - INFO - 127.0.0.1 - - [03/Apr/2026 12:10:13] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:10:13,389 - INFO - 127.0.0.1 - - [03/Apr/2026 12:10:13] "GET / HTTP/1.1" 200 -
+2026-04-03 12:11:18,799 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\code\final minor\app.py", line 152, in register
+    existing_user = users_collection.find_one({"email": email})
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5f9a31b672493f5a5544, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 12:11:18,864 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 12:11:18,870 - INFO - 127.0.0.1 - - [03/Apr/2026 12:11:18] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-03 12:11:19,899 - INFO - 127.0.0.1 - - [03/Apr/2026 12:11:19] "GET / HTTP/1.1" 200 -
+2026-04-03 12:11:21,834 - INFO - 127.0.0.1 - - [03/Apr/2026 12:11:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:11:52,188 - INFO - 127.0.0.1 - - [03/Apr/2026 12:11:52] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:11:56,369 - INFO - 127.0.0.1 - - [03/Apr/2026 12:11:56] "GET / HTTP/1.1" 200 -
+2026-04-03 12:12:04,415 - INFO - 127.0.0.1 - - [03/Apr/2026 12:12:04] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:18:28,062 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:28] "GET / HTTP/1.1" 200 -
+2026-04-03 12:18:28,267 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:28] "GET /static/style.css HTTP/1.1" 200 -
+2026-04-03 12:18:29,256 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:29] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:18:29,273 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:29] "GET / HTTP/1.1" 200 -
+2026-04-03 12:18:30,388 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:30] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:18:30,435 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:18:30,478 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:30] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:18:30,490 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:30] "GET / HTTP/1.1" 200 -
+2026-04-03 12:18:33,121 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:33] "GET /register?role=student HTTP/1.1" 200 -
+2026-04-03 12:18:33,162 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:18:33,214 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:33] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:18:33,220 - INFO - 127.0.0.1 - - [03/Apr/2026 12:18:33] "GET / HTTP/1.1" 200 -
+2026-04-03 12:19:41,298 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\code\final minor\app.py", line 152, in register
+    existing_user = users_collection.find_one({"email": email})
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5f9a31b672493f5a5544, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 12:19:41,311 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 12:19:41,312 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:41] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-03 12:19:41,321 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:41] "GET / HTTP/1.1" 200 -
+2026-04-03 12:19:41,372 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:19:41,428 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:41] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:19:41,435 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:41] "GET / HTTP/1.1" 200 -
+2026-04-03 12:19:47,506 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:47] "GET /login?role=student HTTP/1.1" 200 -
+2026-04-03 12:19:47,533 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-04-03 12:19:47,551 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:47] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-04-03 12:19:47,558 - INFO - 127.0.0.1 - - [03/Apr/2026 12:19:47] "GET / HTTP/1.1" 200 -
+2026-04-03 12:20:23,109 - ERROR - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\code\final minor\app.py", line 188, in login
+    user = users_collection.find_one({
+        "email": email,
+        "password": password,
+        "role": role,
+    })
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\collection.py", line 1755, in find_one
+    for result in cursor.limit(-1):
+                  ~~~~~~~~~~~~^^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1289, in __next__
+    return self.next()
+           ~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1265, in next
+    if len(self._data) or self._refresh():
+                          ~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1213, in _refresh
+    self._send_message(q)
+    ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\cursor.py", line 1108, in _send_message
+    response = client._run_operation(
+        operation, self._unpack_response, address=self._address
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1938, in _run_operation
+    return self._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~^
+        _cmd,
+        ^^^^^
+    ...<4 lines>...
+        operation=operation.name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2048, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<7 lines>...
+        operation_id=operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2014, in _retry_internal
+    ).run()
+      ~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2763, in run
+    return self._read() if self._is_read else self._write()
+           ~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2908, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 2856, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\mongo_client.py", line 1833, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "C:\Users\divyansh tikka\AppData\Roaming\Python\Python313\site-packages\pymongo\synchronous\topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69cf5f9a31b672493f5a5544, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-00.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-01.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-gxpitjh-shard-00-02.jvtk0ev.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1032) (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2026-04-03 12:20:23,116 - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2026-04-03 12:20:23,116 - INFO - 127.0.0.1 - - [03/Apr/2026 12:20:23] "[32mPOST /login HTTP/1.1[0m" 302 -

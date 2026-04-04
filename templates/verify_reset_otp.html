@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 fade-in">
+    <div class="col-md-5 col-lg-4">
+        <div class="glass-card p-4">
+            <div class="text-center mb-4">
+                <div class="icon-circle mb-3 mx-auto" style="color: var(--text-primary); border-color: rgba(255, 255, 255, 0.2);">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h3 class="mt-2 mb-1">Verify OTP</h3>
+                <p class="text-muted small">We've sent a 6-digit code to <strong>{{ email }}</strong>.<br>It will expire in 5 minutes.</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('verify_reset_otp') }}">
+                <div class="otp-container mt-4 mb-4">
+                    <input type="text" class="otp-input" name="d1" maxlength="1" required autocomplete="off" autofocus>
+                    <input type="text" class="otp-input" name="d2" maxlength="1" required autocomplete="off" disabled>
+                    <input type="text" class="otp-input" name="d3" maxlength="1" required autocomplete="off" disabled>
+                    <input type="text" class="otp-input" name="d4" maxlength="1" required autocomplete="off" disabled>
+                    <input type="text" class="otp-input" name="d5" maxlength="1" required autocomplete="off" disabled>
+                    <input type="text" class="otp-input" name="d6" maxlength="1" required autocomplete="off" disabled>
+                </div>
+
+                <button type="submit" class="btn btn-secondary w-100 mb-3" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="bi bi-check-circle me-1"></i> Verify Code
+                </button>
+            </form>
+            
+            <p class="text-center small mb-0">
+                <a href="{{ url_for('login') }}" style="color: var(--text-muted);"><i class="bi bi-x-circle me-1"></i> Cancel Reset</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // OTP script identical to register logic for ease of use
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputs = document.querySelectorAll(".otp-input");
+
+        inputs.forEach((input, index) => {
+            // Handle input
+            input.addEventListener("input", (e) => {
+                if (e.target.value.length > 1) {
+                    e.target.value = e.target.value.substring(0, 1);
+                }
+                
+                // Allow only numbers
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+                if (e.target.value !== "") {
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].disabled = false;
+                        inputs[index + 1].focus();
+                    }
+                }
+            });
+
+            // Handle backspace
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Backspace" && e.target.value === "") {
+                    if (index > 0) {
+                        inputs[index - 1].focus();
+                        inputs[index - 1].value = "";
+                    }
+                }
+            });
+
+            // Handle paste
+            input.addEventListener("paste", (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData("text").trim().replace(/[^0-9]/g, '');
+                
+                if (pastedData.length > 0) {
+                    for (let i = 0; i < Math.min(pastedData.length, inputs.length - index); i++) {
+                        inputs[index + i].disabled = false;
+                        inputs[index + i].value = pastedData[i];
+                    }
+                    
+                    const nextIndex = index + pastedData.length;
+                    if (nextIndex < inputs.length) {
+                        inputs[nextIndex].disabled = false;
+                        inputs[nextIndex].focus();
+                    } else {
+                        inputs[inputs.length - 1].focus();
+                    }
+                }
+            });
+        });
+        
+        // Focus first input automatically
+        if (inputs.length > 0) {
+            inputs[0].focus();
+        }
+    });
+</script>
+{% endblock %}

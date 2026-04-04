@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+    <div class="text-center mb-5 mt-4">
+        <div class="icon-circle purple mx-auto" style="width:80px;height:80px;font-size:2rem;">
+            <i class="bi bi-info-circle-fill"></i>
+        </div>
+        <h2 class="section-title mt-3">About Us</h2>
+        <p class="section-subtitle">Learn about our project and the team behind it.</p>
+    </div>
+
+    <!-- Project Info -->
+    <div class="glass-card p-4 mb-4">
+        <h4><i class="bi bi-shield-check me-2" style="color:var(--accent-blue)"></i>AI Assignment Plagiarism Checker</h4>
+        <p style="color:var(--text-secondary); line-height:1.8;">
+            A web-based system designed to help educational institutions maintain academic integrity. 
+            Faculty can create assignments, students upload their submissions (PDF/DOCX), and the system 
+            automatically detects plagiarism using <strong>TF-IDF similarity analysis</strong> and optional 
+            <strong>AI-based analysis via Gemini API</strong>.
+        </p>
+    </div>
+
+    <!-- Purpose -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-bullseye me-2" style="color:var(--accent-cyan)"></i>Purpose</h5>
+        <ul style="color:var(--text-secondary); line-height:2;">
+            <li>Automate plagiarism detection for academic assignments</li>
+            <li>Provide faculty with visual, color-coded similarity reports</li>
+            <li>Reduce manual effort in checking copied submissions</li>
+            <li>Promote original work and academic honesty</li>
+        </ul>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-gear me-2" style="color:var(--accent-green)"></i>Technologies Used</h5>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <span class="badge-glass badge-blue">Flask</span>
+            <span class="badge-glass badge-green">MongoDB Atlas</span>
+            <span class="badge-glass badge-purple">Scikit-learn (TF-IDF)</span>
+            <span class="badge-glass">Bootstrap 5</span>
+            <span class="badge-glass">PyPDF2</span>
+            <span class="badge-glass">python-docx</span>
+            <span class="badge-glass badge-purple">Gemini API</span>
+        </div>
+    </div>
+
+    <!-- Creators -->
+    <div class="glass-card p-4 mb-4">
+        <h5 class="text-center mb-4"><i class="bi bi-people-fill me-2" style="color:var(--accent-pink)"></i>Created By</h5>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="glass-card creator-card">
+                    <div class="creator-avatar" style="background:rgba(59,130,246,0.15); color:var(--accent-blue);">D</div>
+                    <h5>Dishan</h5>
+                    <p style="color:var(--text-muted)" class="small mb-0">Developer & Co-Creator</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="glass-card creator-card">
+                    <div class="creator-avatar" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">D</div>
+                    <h5>Divyansh</h5>
+                    <p style="color:var(--text-muted)" class="small mb-0">Developer & Co-Creator</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Future Improvements -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-rocket-takeoff me-2" style="color:var(--accent-orange)"></i>Future Improvements</h5>
+        <ul style="color:var(--text-secondary); line-height:2;">
+            <li>AI-powered detailed plagiarism explanations with Gemini</li>
+            <li>Highlighted text comparisons between similar submissions</li>
+            <li>Password hashing with bcrypt for enhanced security</li>
+            <li>Email notifications for high plagiarism alerts</li>
+            <li>Analytics dashboard for faculty</li>
+            <li>Bulk file upload support</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

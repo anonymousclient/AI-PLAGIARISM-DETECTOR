@@ -1,75 +1,38 @@
 import os
 import re
-import logging
+import random
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_mail import Mail, Message
 from bson.objectid import ObjectId
-from werkzeug.utils import secure_filename
-from db import users_collection, assignments_collection, submissions_collection
+from db import users_collection, assignments_collection, submissions_collection, classes_collection, student_classes_collection
 from utils.text_extractor import extract_text
 from utils.similarity import calculate_similarity, get_status, get_status_color
 
-# Load environment variables
+# ─── Load .env ─────────────────────────────────────────────────────
 load_dotenv()
 
 # ─── Flask App Setup ───────────────────────────────────────────────
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "change-this-default-key")
+app.secret_key = os.environ.get("SECRET_KEY", "plagiarism_checker_dev_key")
 
 # Upload folder config
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB max file size
 
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
 
-# ─── Logging Setup ─────────────────────────────────────────────────
-logging.basicConfig(
-    filename="app.log",
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
-
-# ─── Rate Limiting (relaxed — only strict on login/register) ──────
-try:
-    from flask_limiter import Limiter
-    from flask_limiter.util import get_remote_address
-
-    limiter = Limiter(
-        get_remote_address,
-        app=app,
-        default_limits=["50 per minute"],   # relaxed global limit
-        storage_uri="memory://",
-    )
-    print("[✓] Flask-Limiter loaded — rate limiting active.")
-except ImportError:
-    limiter = None
-    print("[!] flask-limiter not installed — rate limiting disabled.")
-
-
-# ─── Input Validation Helpers ──────────────────────────────────────
-def is_valid_email(email):
-    """Basic email format validation."""
-    pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-    return re.match(pattern, email) is not None
-
-
-def sanitize_text(text):
-    """Remove potentially dangerous characters from user input."""
-    if not text:
-        return ""
-    text = text.strip()[:200]
-    text = re.sub(r"<[^>]*>", "", text)
-    return text
-
-
-def is_valid_role(role):
-    """Ensure role is only student or faculty."""
-    return role in ("student", "faculty")
+# ─── Flask-Mail Config (Gmail SMTP) ───────────────────────────────
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
+mail = Mail(app)
 
 
 def allowed_file(filename):
@@ -87,31 +50,50 @@ def login_required(role=None):
     return True
 
 
-# ─── Error Handlers ────────────────────────────────────────────────
-@app.errorhandler(404)
-def not_found(e):
-    flash("Page not found.", "warning")
-    return redirect(url_for("index"))
+def generate_otp():
+    """Generate a random 6-digit OTP."""
+    return str(random.randint(100000, 999999))
 
 
-@app.errorhandler(413)
-def file_too_large(e):
-    flash("File is too large. Maximum size is 10 MB.", "danger")
-    return redirect(request.referrer or url_for("index"))
+def is_valid_email(email):
+    """Validate email format."""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
 
 
-@app.errorhandler(429)
-def rate_limit_exceeded(e):
-    logger.warning(f"Rate limit exceeded from IP: {request.remote_addr}")
-    flash("Too many attempts. Please try again later.", "danger")
-    return redirect(request.referrer or url_for("index"))
+def send_otp_email(to_email, otp):
+    """Send OTP via Flask-Mail (Gmail SMTP). Falls back to console if sending fails."""
+    # Always print OTP to console as a development/demo fallback
+    print(f"\n{'='*50}")
+    print(f"[DEV FALLBACK] OTP for {to_email}: {otp}")
+    print(f"{'='*50}\n")
 
+    try:
+        html_body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; background: #0a0e1a; color: #f1f5f9; padding: 40px;">
+            <div style="max-width: 500px; margin: 0 auto; background: #111827; border-radius: 16px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
+                <h2 style="text-align: center; color: #3b82f6;">&#128737; AI Plagiarism Checker</h2>
+                <p style="text-align: center; color: #94a3b8;">Your email verification code is:</p>
+                <h1 style="text-align: center; font-size: 36px; letter-spacing: 8px; color: #f1f5f9; background: rgba(59,130,246,0.1); border-radius: 12px; padding: 20px;">{otp}</h1>
+                <p style="text-align: center; color: #64748b; font-size: 14px;">This code expires in 10 minutes.<br>Do not share this code with anyone.</p>
+            </div>
+        </body>
+        </html>
+        """
 
-@app.errorhandler(500)
-def internal_error(e):
-    logger.error(f"Internal server error: {e}")
-    flash("Something went wrong. Please try again later.", "danger")
-    return redirect(url_for("index"))
+        msg = Message(
+            subject="AI Plagiarism Checker — Email Verification OTP",
+            recipients=[to_email],
+            html=html_body,
+        )
+        mail.send(msg)
+        print(f"[EMAIL] OTP email sent successfully to {to_email}")
+        return True
+    except Exception as e:
+        print(f"[EMAIL ERROR] Failed to send email to {to_email}: {e}")
+        print(f"[DEV FALLBACK] Use the OTP printed above to verify.")
+        return False
 
 
 # ─── Homepage ──────────────────────────────────────────────────────
@@ -120,33 +102,31 @@ def index():
     return render_template("index.html")
 
 
+# ─── About Page ────────────────────────────────────────────────────
+@app.route("/about")
+def about_page():
+    return render_template("about.html")
+
+
+# ─── Help Page ─────────────────────────────────────────────────────
+@app.route("/help")
+def help_page():
+    return render_template("help.html")
+
+
 # ─── Register ─────────────────────────────────────────────────────
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    print(f"[DEBUG] /register hit — method={request.method}")
-
     if request.method == "POST":
-        name = sanitize_text(request.form.get("name"))
-        email = request.form.get("email", "").strip().lower()
-        password = request.form.get("password", "")
-        role = request.form.get("role", "")
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        role = request.form.get("role")
 
-        # ── Input Validation ──
-        if not name or len(name) < 2:
-            flash("Name must be at least 2 characters.", "danger")
-            return redirect(request.url)
-
+        # Validate email format
         if not is_valid_email(email):
-            flash("Please enter a valid email address.", "danger")
-            return redirect(request.url)
-
-        if len(password) < 4:
-            flash("Password must be at least 4 characters.", "danger")
-            return redirect(request.url)
-
-        if not is_valid_role(role):
-            flash("Invalid role selected.", "danger")
-            return redirect(request.url)
+            flash("Invalid email address. Please enter a valid email.", "danger")
+            return render_template("register.html", role=role)
 
         # Check if user already exists
         existing_user = users_collection.find_one({"email": email})
@@ -154,37 +134,171 @@ def register():
             flash("Email already registered. Please login.", "danger")
             return redirect(url_for("login", role=role))
 
-        # Create new user
-        user = {
+        # Generate OTP and store pending registration in session
+        otp = generate_otp()
+        session["pending_registration"] = {
             "name": name,
             "email": email,
             "password": password,
             "role": role,
+            "otp": otp,
+            "timestamp": datetime.now().isoformat(),
         }
-        users_collection.insert_one(user)
-        flash("Registration successful! Please login.", "success")
-        return redirect(url_for("login", role=role))
+
+        # Send OTP email
+        if send_otp_email(email, otp):
+            flash("Verification code sent to your email!", "success")
+        else:
+            flash("Email could not be sent, but you can still verify. Check the server console for your OTP.", "warning")
+
+        return render_template("verify_otp.html", email=email, role=role)
 
     role = request.args.get("role", "student")
     return render_template("register.html", role=role)
 
 
+# ─── Verify OTP ───────────────────────────────────────────────────
+@app.route("/verify-otp", methods=["POST"])
+def verify_otp():
+    pending = session.get("pending_registration")
+    if not pending:
+        flash("Registration session expired. Please register again.", "danger")
+        return redirect(url_for("register"))
+
+    # Collect OTP from 6 individual inputs
+    entered_otp = ""
+    for i in range(1, 7):
+        digit = request.form.get(f"d{i}", "")
+        entered_otp += digit
+
+    stored_otp = pending.get("otp", "")
+
+    if entered_otp == stored_otp:
+        # OTP correct — create user
+        user = {
+            "name": pending["name"],
+            "email": pending["email"],
+            "password": pending["password"],
+            "role": pending["role"],
+        }
+        users_collection.insert_one(user)
+        session.pop("pending_registration", None)
+        flash("Registration successful! Please login.", "success")
+        return redirect(url_for("login", role=pending["role"]))
+    else:
+        flash("Invalid OTP. Please try again.", "danger")
+        return render_template(
+            "verify_otp.html",
+            email=pending["email"],
+            role=pending["role"],
+        )
+
+
+# ─── Forgot Password ───────────────────────────────────────────────
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        role = request.form.get("role", "student")
+
+        user = users_collection.find_one({"email": email})
+        if not user:
+            flash("Email not found. Please check and try again.", "danger")
+            return redirect(url_for("forgot_password", role=role))
+
+        # Generate and send OTP
+        otp = generate_otp()
+        session["reset_password"] = {
+            "email": email,
+            "otp": otp,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        if send_otp_email(email, otp):
+            flash("A password reset code has been sent to your email.", "success")
+        else:
+            flash("Email could not be sent, but you can still verify. Check the server console for your OTP.", "warning")
+
+        return redirect(url_for("verify_reset_otp"))
+
+    role = request.args.get("role", "student")
+    return render_template("forgot_password.html", role=role)
+
+
+# ─── Verify Reset OTP ──────────────────────────────────────────────
+@app.route("/verify-reset-otp", methods=["GET", "POST"])
+def verify_reset_otp():
+    reset_data = session.get("reset_password")
+    if not reset_data:
+        flash("Password reset session expired. Please try again.", "danger")
+        return redirect(url_for("forgot_password"))
+        
+    email = reset_data["email"]
+
+    if request.method == "POST":
+        # Check expiry (5 minutes)
+        timestamp = datetime.fromisoformat(reset_data["timestamp"])
+        if (datetime.now() - timestamp).total_seconds() > 300:
+            session.pop("reset_password", None)
+            flash("OTP expired. Please request a new one.", "danger")
+            return redirect(url_for("forgot_password"))
+
+        entered_otp = "".join([request.form.get(f"d{i}", "") for i in range(1, 7)])
+        stored_otp = reset_data.get("otp", "")
+
+        if entered_otp == stored_otp:
+            session["reset_password"]["verified"] = True
+            flash("OTP verified! You can now reset your password.", "success")
+            return redirect(url_for("reset_password"))
+        else:
+            flash("Invalid OTP. Please try again.", "danger")
+
+    return render_template("verify_reset_otp.html", email=email)
+
+
+# ─── Reset Password ────────────────────────────────────────────────
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+    reset_data = session.get("reset_password")
+    if not reset_data or not reset_data.get("verified"):
+        flash("Unauthorized access. Please verify your OTP first.", "danger")
+        return redirect(url_for("forgot_password"))
+
+    if request.method == "POST":
+        new_password = request.form.get("new_password")
+        confirm_password = request.form.get("confirm_password")
+
+        if new_password != confirm_password:
+            flash("Passwords do not match.", "danger")
+            return redirect(url_for("reset_password"))
+            
+        if len(new_password) < 6:
+            flash("Password must be at least 6 characters long.", "danger")
+            return redirect(url_for("reset_password"))
+
+        # Update in DB
+        email = reset_data["email"]
+        users_collection.update_one(
+            {"email": email},
+            {"$set": {"password": new_password}}
+        )
+
+        session.pop("reset_password", None)
+        flash("Password has been reset successfully. Please login.", "success")
+        return redirect(url_for("login"))
+
+    return render_template("reset_password.html")
+
+
 # ─── Login ─────────────────────────────────────────────────────────
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    print(f"[DEBUG] /login hit — method={request.method}")
-
     if request.method == "POST":
-        email = request.form.get("email", "").strip().lower()
-        password = request.form.get("password", "")
-        role = request.form.get("role", "")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        role = request.form.get("role")
 
-        # ── Input Validation ──
-        if not is_valid_email(email) or not password or not is_valid_role(role):
-            flash("Invalid email, password, or role.", "danger")
-            return redirect(url_for("login", role=role))
-
-        # Find user in MongoDB (database only — no external API calls)
+        # Find user in MongoDB
         user = users_collection.find_one({
             "email": email,
             "password": password,
@@ -196,15 +310,12 @@ def login():
             session["user_name"] = user["name"]
             session["user_role"] = user["role"]
             flash(f"Welcome, {user['name']}!", "success")
-            print(f"[DEBUG] Login success for {email} as {role}")
 
             if role == "student":
                 return redirect(url_for("student_dashboard"))
             else:
                 return redirect(url_for("faculty_dashboard"))
         else:
-            logger.warning(f"Failed login for {email} from {request.remote_addr}")
-            print(f"[DEBUG] Login FAILED for {email}")
             flash("Invalid email, password, or role.", "danger")
             return redirect(url_for("login", role=role))
 
@@ -227,8 +338,57 @@ def student_dashboard():
         flash("Please login as a student.", "warning")
         return redirect(url_for("login", role="student"))
 
-    assignments = list(assignments_collection.find())
-    return render_template("student_dashboard.html", assignments=assignments)
+    student_id = session["user_id"]
+    
+    # Get all joined class IDs
+    joined_classes = list(student_classes_collection.find({"student_id": student_id}))
+    class_ids = [c["class_id"] for c in joined_classes]
+    
+    # Fetch classes info
+    classes = list(classes_collection.find({"class_id": {"$in": class_ids}}))
+    
+    # Fetch assignments for joined classes
+    assignments = list(assignments_collection.find({"class_id": {"$in": class_ids}}))
+    
+    return render_template("student_dashboard.html", classes=classes, assignments=assignments)
+
+
+# ─── Join Class (Student) ─────────────────────────────────────────
+@app.route("/student/join_class", methods=["GET", "POST"])
+def join_class():
+    if not login_required(role="student"):
+        flash("Please login as a student.", "warning")
+        return redirect(url_for("login", role="student"))
+
+    if request.method == "POST":
+        join_code = request.form.get("join_code")
+        student_id = session["user_id"]
+
+        # Find class by join code
+        cls = classes_collection.find_one({"join_code": join_code})
+        if not cls:
+            flash("Invalid join code. Please check and try again.", "danger")
+            return redirect(url_for("join_class"))
+
+        # Check if already joined
+        existing = student_classes_collection.find_one({
+            "student_id": student_id,
+            "class_id": cls["class_id"]
+        })
+        if existing:
+            flash("You have already joined this class.", "info")
+            return redirect(url_for("student_dashboard"))
+
+        # Map student to class
+        student_classes_collection.insert_one({
+            "student_id": student_id,
+            "class_id": cls["class_id"]
+        })
+        
+        flash(f"Successfully joined {cls['class_name']}!", "success")
+        return redirect(url_for("student_dashboard"))
+
+    return render_template("join_class.html")
 
 
 # ─── Upload Assignment (Student) ──────────────────────────────────
@@ -238,14 +398,8 @@ def upload(assignment_id):
         flash("Please login as a student.", "warning")
         return redirect(url_for("login", role="student"))
 
-    # Validate assignment_id format
-    try:
-        obj_id = ObjectId(assignment_id)
-    except Exception:
-        flash("Invalid assignment.", "danger")
-        return redirect(url_for("student_dashboard"))
-
-    assignment = assignments_collection.find_one({"_id": obj_id})
+    # Fetch assignment details
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
     if not assignment:
         flash("Assignment not found.", "danger")
         return redirect(url_for("student_dashboard"))
@@ -261,22 +415,17 @@ def upload(assignment_id):
             flash("Invalid file type. Only PDF and DOCX files are allowed.", "danger")
             return redirect(request.url)
 
+        # Rename file: studentID_assignmentID_filename
         student_id = session["user_id"]
-        original_filename = secure_filename(file.filename)
+        original_filename = file.filename
         new_filename = f"{student_id}_{assignment_id}_{original_filename}"
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], new_filename)
-
-        try:
-            file.save(file_path)
-        except Exception as e:
-            logger.error(f"File save failed: {e}")
-            flash("File upload failed. Please try again.", "danger")
-            return redirect(request.url)
+        file.save(file_path)
 
         # Extract text from file
         extracted_text = extract_text(file_path)
 
-        # Compare with previous submissions for same assignment
+        # ── Compare with previous submissions for same assignment ──
         previous_submissions = list(submissions_collection.find({
             "assignment_id": assignment_id,
             "student_id": {"$ne": student_id},
@@ -298,6 +447,7 @@ def upload(assignment_id):
                     highest_score = score
                     most_similar_student = prev["student_id"]
 
+        # Save submission to MongoDB
         submission = {
             "student_id": student_id,
             "student_name": session.get("user_name", "Unknown"),
@@ -326,8 +476,48 @@ def faculty_dashboard():
         return redirect(url_for("login", role="faculty"))
 
     faculty_id = session["user_id"]
+    
+    # Fetch classes created by this faculty
+    classes = list(classes_collection.find({"faculty_id": faculty_id}))
+    
+    # Fetch assignments created by this faculty
     assignments = list(assignments_collection.find({"created_by": faculty_id}))
-    return render_template("faculty_dashboard.html", assignments=assignments)
+    
+    return render_template("faculty_dashboard.html", classes=classes, assignments=assignments)
+
+
+# ─── Create Class (Faculty) ───────────────────────────────────────
+@app.route("/faculty/create_class", methods=["GET", "POST"])
+def create_class():
+    if not login_required(role="faculty"):
+        flash("Please login as faculty.", "warning")
+        return redirect(url_for("login", role="faculty"))
+
+    if request.method == "POST":
+        class_name = request.form.get("class_name")
+        faculty_id = session["user_id"]
+        
+        # Generate unique join code
+        while True:
+            join_code = str(random.randint(100000, 999999))
+            if not classes_collection.find_one({"join_code": join_code}):
+                break
+        
+        class_id = str(ObjectId())
+        
+        new_class = {
+            "class_id": class_id,
+            "class_name": class_name,
+            "faculty_id": faculty_id,
+            "join_code": join_code,
+            "created_at": datetime.now()
+        }
+        classes_collection.insert_one(new_class)
+        
+        flash(f"Class '{class_name}' created successfully! Code: {join_code}", "success")
+        return redirect(url_for("faculty_dashboard"))
+
+    return render_template("create_class.html")
 
 
 # ─── Create Assignment (Faculty) ──────────────────────────────────
@@ -337,22 +527,23 @@ def create_assignment():
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
+    faculty_id = session["user_id"]
+    # Fetch classes for the dropdown
+    classes = list(classes_collection.find({"faculty_id": faculty_id}))
+
     if request.method == "POST":
-        subject = sanitize_text(request.form.get("subject"))
-        title = sanitize_text(request.form.get("title"))
-        faculty_id = session["user_id"]
+        subject = request.form.get("subject")
+        title = request.form.get("title")
+        class_id = request.form.get("class_id")
 
-        if not subject or len(subject) < 2:
-            flash("Subject name must be at least 2 characters.", "danger")
-            return redirect(request.url)
-
-        if not title or len(title) < 2:
-            flash("Assignment title must be at least 2 characters.", "danger")
-            return redirect(request.url)
+        if not class_id:
+            flash("Please select a class for the assignment.", "danger")
+            return redirect(url_for("create_assignment"))
 
         assignment = {
             "subject": subject,
             "title": title,
+            "class_id": class_id,
             "created_by": faculty_id,
             "created_at": datetime.now(),
         }
@@ -360,7 +551,7 @@ def create_assignment():
         flash("Assignment created successfully!", "success")
         return redirect(url_for("faculty_dashboard"))
 
-    return render_template("create_assignment.html")
+    return render_template("create_assignment.html", classes=classes)
 
 
 # ─── View Submissions (Faculty) ───────────────────────────────────
@@ -370,34 +561,29 @@ def view_submissions(assignment_id):
         flash("Please login as faculty.", "warning")
         return redirect(url_for("login", role="faculty"))
 
-    try:
-        obj_id = ObjectId(assignment_id)
-    except Exception:
-        flash("Invalid assignment.", "danger")
-        return redirect(url_for("faculty_dashboard"))
-
-    assignment = assignments_collection.find_one({"_id": obj_id})
+    # Fetch assignment details
+    assignment = assignments_collection.find_one({"_id": ObjectId(assignment_id)})
     if not assignment:
         flash("Assignment not found.", "danger")
         return redirect(url_for("faculty_dashboard"))
 
+    # Fetch all submissions sorted by highest similarity
     submissions = list(submissions_collection.find(
         {"assignment_id": str(assignment_id)}
     ).sort("highest_similarity_score", -1))
 
+    # Add status and color info to each submission
     for sub in submissions:
         score = sub.get("highest_similarity_score", 0)
         sub["status"] = get_status(score)
         sub["status_color"] = get_status_color(score)
 
+        # Get the name of the most similar student
         if sub.get("most_similar_student"):
-            try:
-                similar_user = users_collection.find_one(
-                    {"_id": ObjectId(sub["most_similar_student"])}
-                )
-                sub["similar_student_name"] = similar_user["name"] if similar_user else "Unknown"
-            except Exception:
-                sub["similar_student_name"] = "Unknown"
+            similar_user = users_collection.find_one(
+                {"_id": ObjectId(sub["most_similar_student"])}
+            )
+            sub["similar_student_name"] = similar_user["name"] if similar_user else "Unknown"
         else:
             sub["similar_student_name"] = "N/A"
 
@@ -410,4 +596,9 @@ def view_submissions(assignment_id):
 
 # ─── Run the App ──────────────────────────────────────────────────
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Ensure upload folder exists
+    if not os.path.exists(app.config["UPLOAD_FOLDER"]):
+        os.makedirs(app.config["UPLOAD_FOLDER"])
+        
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)

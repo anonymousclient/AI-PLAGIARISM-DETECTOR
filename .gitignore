@@ -1,43 +1,22 @@
-# ─── Python ───
-__pycache__/
+# Prerequisites
 *.py[cod]
 *$py.class
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-*.whl
-
-# ─── Virtual Environment ───
-venv/
-env/
-.venv/
-
-# ─── Secrets (CRITICAL — never commit) ───
-.env
-
-# ─── Flask ───
+__pycache__/
 instance/
-*.db
-*.sqlite3
 
-# ─── Uploads (user files — don't push to GitHub) ───
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# File storage
 uploads/
 
-# ─── Logs ───
-*.log
-app.log
-
-# ─── IDE / Editor ───
+# IDE / Editor
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
+
+# OS generated files
 .DS_Store
 Thumbs.db
-
-# ─── OS ───
-*.bak
-*.tmp

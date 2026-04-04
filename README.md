@@ -7,27 +7,13 @@ A web-based plagiarism detection system built with **Flask** and **MongoDB**. Fa
 ## 📋 Features
 
 - **Role-Based Authentication** — Separate login for Students and Faculty
-- **Student Dashboard** — View assignments and upload submissions
-- **Faculty Dashboard** — Create assignments and manage submissions
-- **File Upload** — Accepts PDF and DOCX files with validation (max 10 MB)
-- **Text Extraction** — Automatically extracts text from uploaded documents
+- **Class Management** — Faculty can create classes with unique 6-digit codes
+- **Multi-Tenant System** — Students only see assignments from classes they've joined
+- **Student Dashboard** — Join classes and upload submissions
+- **Faculty Dashboard** — Create classes, assignments, and manage submissions
+- **File Upload** — Accepts PDF and DOCX files with validation
 - **Plagiarism Detection** — TF-IDF + Cosine Similarity comparison engine
 - **Color-Coded Reports** — Green (Safe), Yellow (Suspicious), Red (High Plagiarism)
-- **MongoDB Atlas** — Cloud-based persistent data storage
-
----
-
-## 🔒 Security Features
-
-| Feature | Description |
-|---------|-------------|
-| **Environment Variables** | All secrets stored in `.env` (never committed) |
-| **Rate Limiting** | Login: 5/min, Upload: 10/min, General: 50/hr |
-| **Input Validation** | Email format, password length, text sanitization |
-| **File Security** | Only PDF/DOCX, 10 MB limit, sanitized filenames |
-| **Role Protection** | Students can't access faculty routes and vice versa |
-| **Error Handling** | Generic error messages — no stack traces exposed |
-| **Activity Logging** | Failed logins and suspicious activity logged to `app.log` |
 
 ---
 
@@ -36,14 +22,12 @@ A web-based plagiarism detection system built with **Flask** and **MongoDB**. Fa
 | Technology | Purpose |
 |------------|---------|
 | **Flask** | Backend web framework |
-| **MongoDB Atlas** | Cloud database (users, assignments, submissions) |
+| **MongoDB Atlas** | Cloud database (users, assignments, submissions, classes) |
 | **HTML / CSS / Bootstrap 5** | Frontend UI |
 | **Scikit-learn** | TF-IDF Vectorizer + Cosine Similarity |
 | **PyPDF2** | PDF text extraction |
 | **python-docx** | DOCX text extraction |
-| **Flask-Limiter** | Rate limiting protection |
 | **python-dotenv** | Environment variable management |
-| **Gemini API** *(optional)* | AI-based similarity explanation |
 
 ---
 
@@ -53,108 +37,60 @@ A web-based plagiarism detection system built with **Flask** and **MongoDB**. Fa
 AI-Assignment-Plagiarism-Checker/
 ├── app.py                        # Main Flask application
 ├── db.py                         # MongoDB connection setup
-├── .env                          # Secrets (git-ignored)
-├── .gitignore                    # Ignored files
 ├── requirements.txt              # Python dependencies
+├── Procfile                      # Deployment config for Render
+├── .env.example                  # Template for environment variables
 ├── utils/
 │   ├── text_extractor.py         # PDF/DOCX text extraction
 │   └── similarity.py             # TF-IDF similarity engine
-├── templates/
-│   ├── base.html                 # Common layout (Bootstrap)
-│   ├── index.html                # Homepage
-│   ├── login.html                # Login page
-│   ├── register.html             # Registration page
-│   ├── student_dashboard.html    # Student view
-│   ├── upload.html               # File upload form
-│   ├── faculty_dashboard.html    # Faculty view
-│   ├── create_assignment.html    # Create assignment form
-│   └── submissions.html          # Plagiarism results table
-├── static/
-│   └── style.css                 # Custom styles
-└── uploads/                      # Uploaded files (git-ignored)
+├── templates/                    # HTML templates (Dashboards, etc.)
+├── static/                       # CSS and assets
+└── uploads/                      # Local (ephemeral) storage for uploads
 ```
 
 ---
 
 ## ⚙️ Installation Steps
 
-### 1. Clone the Repository
-
+### 1. Clone & Setup
 ```bash
 git clone https://github.com/YOUR_USERNAME/AI-Assignment-Plagiarism-Checker.git
 cd AI-Assignment-Plagiarism-Checker
-```
-
-### 2. Install Dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-### 3. Create a `.env` File
-
-Create a file named `.env` in the project root with the following content:
-
+### 2. Environment Variables
+Create a `.env` file in the root directory and add your credentials:
+```env
+MONGO_URI=your_mongodb_atlas_uri
+SECRET_KEY=your_secret_flask_key
+MAIL_USERNAME=your_gmail_address
+MAIL_PASSWORD=your_gmail_app_password
+GEMINI_API_KEY=your_gemini_api_key
 ```
-MONGO_URI=your_mongodb_connection_string_here
-SECRET_KEY=your_flask_secret_key_here
-GEMINI_API_KEY=your_gemini_api_key_here
-```
 
-> ⚠️ **Never share or commit this file.** It is already listed in `.gitignore`.
-
-### 4. Setup MongoDB
-
-- Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Get your connection string and paste it in `.env` as `MONGO_URI`
-
----
-
-## 🚀 How to Run
-
+### 3. Run Locally
 ```bash
 python app.py
 ```
-
-Or using Flask CLI:
-
-```bash
-python -m flask run
-```
-
-Open your browser and go to: **http://127.0.0.1:5000**
+Visit: **http://127.0.0.1:10000**
 
 ---
 
-## 📸 Screenshots
+## 🚀 Deploying to Render
 
-| Page | Preview |
-|------|---------|
-| Homepage | *Add screenshot here* |
-| Student Dashboard | *Add screenshot here* |
-| Faculty Dashboard | *Add screenshot here* |
-| Plagiarism Results | *Add screenshot here* |
+1.  **Push to GitHub**: Upload your project to a GitHub repository.
+2.  **Create Web Service**: In Render dashboard, select **New -> Web Service**.
+3.  **Build Settings**:
+    - **Build Command**: `pip install -r requirements.txt`
+    - **Start Command**: `python app.py`
+4.  **Environment Variables**: Add the following keys in Render's "Environment" tab:
+    - `MONGO_URI`, `SECRET_KEY`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `GEMINI_API_KEY`, `PORT` (set to `10000`).
 
----
-
-## 🔮 Future Improvements
-
-- 🔐 Password hashing (bcrypt)
-- 🤖 Gemini AI-powered similarity explanations
-- 📊 Detailed plagiarism reports with highlighted text
-- 📧 Email notifications for high plagiarism alerts
-- 📱 Responsive mobile-friendly design
-- 📥 Bulk assignment upload support
-- 📈 Analytics dashboard for faculty
+> [!WARNING]
+> **Ephemeral Storage**: Render's local `uploads/` folder is cleared on every restart. For permanent storage, integrate AWS S3 or Cloudinary.
 
 ---
 
 ## 👤 Author
-
 **Divyansh Tikka**
-
----
-
-## 📄 License
-
-This project is for educational purposes.

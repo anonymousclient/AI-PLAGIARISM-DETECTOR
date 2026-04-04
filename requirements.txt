@@ -4,5 +4,5 @@ dnspython
 PyPDF2
 python-docx
 scikit-learn
+flask-mail
 python-dotenv
-flask-limiter

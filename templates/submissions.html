@@ -1,57 +1,73 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3 fade-in">
-    <div>
-        <h2 class="section-title"><i class="bi bi-file-earmark-bar-graph me-2"></i>Submissions</h2>
-        <p class="text-muted mb-0">
-            <strong>{{ assignment.subject }}</strong> — {{ assignment.title }}
-        </p>
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="section-title">
+                <i class="bi bi-file-earmark-bar-graph me-2" style="color: var(--accent-green)"></i>Submissions
+            </h2>
+            <p class="section-subtitle mb-0">
+                <strong>{{ assignment.subject }}</strong> — {{ assignment.title }}
+            </p>
+        </div>
+        <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-glass">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </a>
     </div>
-    <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i> Back
-    </a>
+
+    <hr>
+
+    {% if submissions %}
+        <div class="glass-card p-0" style="overflow: hidden;">
+            <div class="table-responsive">
+                <table class="table table-glass mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student Name</th>
+                            <th>File Name</th>
+                            <th>Similarity %</th>
+                            <th>Copied From</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sub in submissions %}
+                        <tr class="{{ 'row-danger' if sub.highest_similarity_score >= 60 else '' }}">
+                            <td>{{ loop.index }}</td>
+                            <td>
+                                <i class="bi bi-person-circle me-1" style="color: var(--accent-blue)"></i>
+                                {{ sub.student_name }}
+                            </td>
+                            <td>
+                                <i class="bi bi-file-earmark me-1" style="color: var(--text-muted)"></i>
+                                {{ sub.filename }}
+                            </td>
+                            <td>
+                                <strong>{{ sub.highest_similarity_score }}%</strong>
+                            </td>
+                            <td>{{ sub.similar_student_name }}</td>
+                            <td>
+                                {% if sub.status == 'Safe' %}
+                                    <span class="status-safe">{{ sub.status }}</span>
+                                {% elif sub.status == 'Suspicious' %}
+                                    <span class="status-suspicious">{{ sub.status }}</span>
+                                {% else %}
+                                    <span class="status-danger">{{ sub.status }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5" style="color: var(--text-muted)">
+            <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+            <p class="mt-2">No submissions yet for this assignment.</p>
+        </div>
+    {% endif %}
 </div>
-
-<hr>
-
-{% if submissions %}
-    <div class="table-responsive fade-in fade-in-delay-1">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Student Name</th>
-                    <th>File Name</th>
-                    <th>Similarity %</th>
-                    <th>Copied From</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sub in submissions %}
-                <tr class="{{ 'table-danger' if sub.highest_similarity_score >= 60 else '' }}">
-                    <td>{{ loop.index }}</td>
-                    <td>{{ sub.student_name }}</td>
-                    <td>{{ sub.filename }}</td>
-                    <td>
-                        <strong>{{ sub.highest_similarity_score }}%</strong>
-                    </td>
-                    <td>{{ sub.similar_student_name }}</td>
-                    <td>
-                        <span class="badge bg-{{ sub.status_color }}">
-                            {{ sub.status }}
-                        </span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% else %}
-    <div class="text-center empty-state fade-in">
-        <i class="bi bi-inbox d-block"></i>
-        <p>No submissions yet for this assignment.</p>
-    </div>
-{% endif %}
 {% endblock %}

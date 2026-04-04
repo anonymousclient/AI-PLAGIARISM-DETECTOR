@@ -2,33 +2,48 @@
 
 {% block content %}
 <div class="row justify-content-center mt-4 fade-in">
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-5">
         <div class="glass-card p-4">
-            <h3 class="mb-3">
-                <i class="bi bi-cloud-upload me-2" style="color: var(--accent-cyan);"></i>Upload Assignment
+            <h3 class="mb-1">
+                <i class="bi bi-cloud-upload" style="color: var(--accent-blue)"></i> Upload Assignment
             </h3>
-            <p class="text-muted">
+            <p style="color: var(--text-secondary)">
                 <strong>{{ assignment.subject }}</strong> — {{ assignment.title }}
             </p>
             <hr>
 
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" id="uploadForm">
                 <div class="mb-3">
-                    <label for="file" class="form-label">Select File (PDF or DOCX only)</label>
-                    <input type="file" class="form-control" id="file" name="file"
+                    <label for="file" class="form-label-glass">Select File (PDF or DOCX only)</label>
+                    <input type="file" class="form-control form-control-glass" id="file" name="file"
                            accept=".pdf,.docx" required>
-                    <div class="form-text">Maximum file size: 10 MB</div>
+                    <div class="form-text" style="color: var(--text-muted)">Maximum file size: 10 MB</div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">
+                <button type="submit" class="btn btn-gradient-blue w-100" id="submitBtn">
                     <i class="bi bi-upload me-1"></i> Submit Assignment
                 </button>
+
+                <!-- Loading spinner -->
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p style="color: var(--text-secondary)">Uploading & analyzing...</p>
+                </div>
             </form>
 
-            <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-secondary w-100 mt-2">
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-glass w-100 mt-2">
                 <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
             </a>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('loadingSpinner').style.display = 'block';
+    });
+</script>
 {% endblock %}

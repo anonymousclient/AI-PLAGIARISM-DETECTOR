@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+    <div class="text-center mb-5 mt-4">
+        <div class="icon-circle cyan mx-auto" style="width:80px;height:80px;font-size:2rem;">
+            <i class="bi bi-question-circle-fill"></i>
+        </div>
+        <h2 class="section-title mt-3">Help Center</h2>
+        <p class="section-subtitle">Learn how to use the AI Plagiarism Checker system.</p>
+    </div>
+
+    <!-- Student Guide -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-mortarboard me-2" style="color:var(--accent-blue)"></i>For Students</h5>
+        <ol style="color:var(--text-secondary); line-height:2.2;">
+            <li>Click <strong>"Login as Student"</strong> on the homepage</li>
+            <li>Register with your name, email, and password (if new user)</li>
+            <li>Verify your email with the OTP sent to your inbox</li>
+            <li>Login and view the <strong>Student Dashboard</strong></li>
+            <li>Find the assignment and click <strong>"Upload Assignment"</strong></li>
+            <li>Select a <strong>PDF or DOCX</strong> file and submit</li>
+            <li>You'll see a success message once uploaded</li>
+        </ol>
+        <div class="alert alert-info mt-2 mb-0">
+            <i class="bi bi-info-circle me-1"></i>
+            <strong>Note:</strong> Students cannot view plagiarism results. Only faculty can see similarity reports.
+        </div>
+    </div>
+
+    <!-- Faculty Guide -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-person-workspace me-2" style="color:var(--accent-green)"></i>For Faculty</h5>
+        <ol style="color:var(--text-secondary); line-height:2.2;">
+            <li>Click <strong>"Login as Faculty"</strong> on the homepage</li>
+            <li>Register and verify your email (if new user)</li>
+            <li>Go to your <strong>Faculty Dashboard</strong></li>
+            <li>Click <strong>"Create Assignment"</strong> — enter subject and title</li>
+            <li>Students will see the assignment on their dashboard</li>
+            <li>Click <strong>"View Submissions"</strong> to see all uploads</li>
+            <li>Review the <strong>color-coded plagiarism table</strong></li>
+        </ol>
+    </div>
+
+    <!-- Plagiarism Results Guide -->
+    <div class="glass-card p-4 mb-4">
+        <h5><i class="bi bi-bar-chart me-2" style="color:var(--accent-purple)"></i>Understanding Plagiarism Results</h5>
+        <table class="table table-glass mb-0">
+            <thead>
+                <tr>
+                    <th>Similarity %</th>
+                    <th>Status</th>
+                    <th>Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>0 – 30%</strong></td>
+                    <td><span class="status-safe">Safe</span></td>
+                    <td style="color:var(--text-secondary)">Original work, minimal overlap</td>
+                </tr>
+                <tr>
+                    <td><strong>30 – 60%</strong></td>
+                    <td><span class="status-suspicious">Suspicious</span></td>
+                    <td style="color:var(--text-secondary)">Some similarities found, needs review</td>
+                </tr>
+                <tr>
+                    <td><strong>60 – 100%</strong></td>
+                    <td><span class="status-danger">High Plagiarism</span></td>
+                    <td style="color:var(--text-secondary)">Significant copying detected</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FAQ -->
+    <div class="glass-card p-4 mb-4">
+        <h5 class="mb-3"><i class="bi bi-chat-dots me-2" style="color:var(--accent-orange)"></i>Frequently Asked Questions</h5>
+        <div class="accordion accordion-glass" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        What file types are allowed?
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Currently, we accept <strong>PDF (.pdf)</strong> and <strong>DOCX (.docx)</strong> files only. 
+                        Make sure your file is within 10 MB. Other formats like .txt or .doc are not supported.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        Why can't I see results as a student?
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Plagiarism results are restricted to <strong>faculty only</strong> to maintain assessment integrity. 
+                        Students can upload assignments but cannot view similarity scores or reports.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                        What does similarity percentage mean?
+                    </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        The similarity percentage is calculated using <strong>TF-IDF and cosine similarity</strong>. 
+                        It measures how much text overlap exists between two submissions for the same assignment. 
+                        A higher percentage indicates more shared content.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                        How do I verify my email?
+                    </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        During registration, a <strong>6-digit OTP</strong> is sent to your email. Enter it on the 
+                        verification screen to complete your registration. The OTP expires after 10 minutes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
