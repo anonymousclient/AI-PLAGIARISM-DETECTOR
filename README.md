@@ -93,4 +93,5 @@ Visit: **http://127.0.0.1:10000**
 ---
 
 ## 👤 Author
-**Divyansh Tikka**
+**Dishan And Divyansh
+
