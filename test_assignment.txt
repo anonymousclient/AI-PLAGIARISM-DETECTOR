@@ -1,0 +1,5 @@
+This is a test assignment submission for the AI Plagiarism Detector project.
+It was written by a human to test the TF-IDF similarity and Gemini AI detection layers.
+The AI layer should return a low probability or a graceful fallback if the API is not configured.
+Plagiarism detection is essential for educational integrity.
+We hope this system helps faculty and students maintain high standards.

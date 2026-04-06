@@ -3,7 +3,7 @@ import re
 import random
 from datetime import datetime
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
 from flask_mail import Mail, Message
 from bson.objectid import ObjectId
 from db import users_collection, assignments_collection, submissions_collection, classes_collection, student_classes_collection
@@ -592,6 +592,32 @@ def view_submissions(assignment_id):
         assignment=assignment,
         submissions=submissions,
     )
+
+
+# ─── View File (Faculty) ──────────────────────────────────────────
+@app.route("/faculty/view_file/<submission_id>")
+def view_file(submission_id):
+    if not login_required(role="faculty"):
+        flash("Please login as faculty.", "warning")
+        return redirect(url_for("login", role="faculty"))
+
+    submission = submissions_collection.find_one({"_id": ObjectId(submission_id)})
+    if not submission:
+        flash("Submission not found.", "danger")
+        return redirect(url_for("faculty_dashboard"))
+
+    file_path = submission.get("file_path")
+    if not file_path or not os.path.exists(file_path):
+        flash("File not found on server.", "danger")
+        return redirect(url_for("faculty_dashboard"))
+
+    # Security check: Ensure faculty is viewing an assignment they created or has access to
+    # (For now, we just check role, but could be more restrictive if needed)
+
+    directory = os.path.dirname(file_path)
+    filename = os.path.basename(file_path)
+
+    return send_from_directory(directory, filename)
 
 
 # ─── Run the App ──────────────────────────────────────────────────
