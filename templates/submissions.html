@@ -50,10 +50,16 @@
                                 <strong>{{ sub.highest_similarity_score }}%</strong>
                             </td>
                             <td>
-                                <span class="badge-glass {{ 'badge-blue' if (sub.ai_score|default(0)) < 40 else 'badge-purple' if (sub.ai_score|default(0)) < 75 else 'badge-purple' }}" 
-                                      style="{% if (sub.ai_score|default(0)) >= 75 %}color: var(--accent-red); border-color: var(--accent-red);{% elif (sub.ai_score|default(0)) >= 40 %}color: var(--accent-yellow); border-color: var(--accent-yellow);{% endif %}">
-                                    {{ sub.ai_score|default(0) }}%
-                                </span>
+                                {% if (sub.ai_score|default(0)) == -1 %}
+                                    <span class="badge-glass" style="color: var(--text-muted); border-color: var(--border-color);">
+                                        N/A
+                                    </span>
+                                {% else %}
+                                    <span class="badge-glass {{ 'badge-blue' if (sub.ai_score|default(0)) < 40 else 'badge-purple' if (sub.ai_score|default(0)) < 75 else 'badge-purple' }}" 
+                                          style="{% if (sub.ai_score|default(0)) >= 75 %}color: var(--accent-red); border-color: var(--accent-red);{% elif (sub.ai_score|default(0)) >= 40 %}color: var(--accent-yellow); border-color: var(--accent-yellow);{% endif %}">
+                                        {{ sub.ai_score|default(0) }}%
+                                    </span>
+                                {% endif %}
                             </td>
                             <td>{{ sub.similar_student_name }}</td>
                             <td>
