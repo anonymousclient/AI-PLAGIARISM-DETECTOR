@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
-from utils.similarity import get_ai_probability
+from utils.ai_detector import detect_ai_content
 
 load_dotenv()
 key = os.getenv("GEMINI_API_KEY")

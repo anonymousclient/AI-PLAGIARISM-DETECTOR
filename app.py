@@ -1,6 +1,7 @@
 import os
 import re
 import random
+import threading
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
@@ -9,6 +10,7 @@ from bson.objectid import ObjectId
 from db import users_collection, assignments_collection, submissions_collection, classes_collection, student_classes_collection
 from utils.text_extractor import extract_text
 from utils.similarity import calculate_similarity, get_status, get_status_color
+from utils.ai_detector import detect_ai_content
 
 # ─── Load .env ─────────────────────────────────────────────────────
 load_dotenv()
@@ -61,8 +63,18 @@ def is_valid_email(email):
     return re.match(pattern, email) is not None
 
 
+def send_async_email(app, msg):
+    """Helper to send email in a background thread with the correct app context."""
+    with app.app_context():
+        try:
+            mail.send(msg)
+            print(f"[EMAIL] Background email sent successfully.")
+        except Exception as e:
+            print(f"[EMAIL ERROR] Failed to send background email: {e}")
+
+
 def send_otp_email(to_email, otp):
-    """Send OTP via Flask-Mail (Gmail SMTP). Falls back to console if sending fails."""
+    """Send OTP via Flask-Mail (Gmail SMTP) in the background. Falls back to console."""
     # Always print OTP to console as a development/demo fallback
     print(f"\n{'='*50}")
     print(f"[DEV FALLBACK] OTP for {to_email}: {otp}")
@@ -87,12 +99,14 @@ def send_otp_email(to_email, otp):
             recipients=[to_email],
             html=html_body,
         )
-        mail.send(msg)
-        print(f"[EMAIL] OTP email sent successfully to {to_email}")
+        
+        # Dispatch email sending to a background thread
+        thread = threading.Thread(target=send_async_email, args=(app, msg))
+        thread.start()
+        
         return True
     except Exception as e:
-        print(f"[EMAIL ERROR] Failed to send email to {to_email}: {e}")
-        print(f"[DEV FALLBACK] Use the OTP printed above to verify.")
+        print(f"[EMAIL ERROR] Failed to dispatch background email to {to_email}: {e}")
         return False
 
 
@@ -447,6 +461,9 @@ def upload(assignment_id):
                     highest_score = score
                     most_similar_student = prev["student_id"]
 
+        # ── Detect AI-generated content (Dual-layer check) ──
+        ai_score = detect_ai_content(extracted_text)
+
         # Save submission to MongoDB
         submission = {
             "student_id": student_id,
@@ -455,6 +472,7 @@ def upload(assignment_id):
             "file_path": file_path,
             "filename": original_filename,
             "extracted_text": extracted_text,
+            "ai_score": ai_score,
             "similarity_results": similarity_results,
             "highest_similarity_score": highest_score,
             "most_similar_student": most_similar_student,
