@@ -63,45 +63,61 @@ def is_valid_email(email):
     return re.match(pattern, email) is not None
 
 
-def send_async_email(app, msg):
+def send_async_email(app_instance, msg):
     """Helper to send email in a background thread with the correct app context."""
-    with app.app_context():
+    with app_instance.app_context():
         try:
             mail.send(msg)
-            print(f"[EMAIL] Background email sent successfully.")
+            print(f"[EMAIL SUCCESS] Transcript sent to {msg.recipients}")
         except Exception as e:
             print(f"[EMAIL ERROR] Failed to send background email: {e}")
 
 
-def send_otp_email(to_email, otp):
+def send_otp_email(to_email, otp, subject_prefix="Verification"):
     """Send OTP via Flask-Mail (Gmail SMTP) in the background. Falls back to console."""
     # Always print OTP to console as a development/demo fallback
     print(f"\n{'='*50}")
-    print(f"[DEV FALLBACK] OTP for {to_email}: {otp}")
+    print(f"[DEV FALLBACK] {subject_prefix} OTP for {to_email}: {otp}")
     print(f"{'='*50}\n")
 
     try:
         html_body = f"""
         <html>
-        <body style="font-family: Arial, sans-serif; background: #0a0e1a; color: #f1f5f9; padding: 40px;">
-            <div style="max-width: 500px; margin: 0 auto; background: #111827; border-radius: 16px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
-                <h2 style="text-align: center; color: #3b82f6;">&#128737; AI Plagiarism Checker</h2>
-                <p style="text-align: center; color: #94a3b8;">Your email verification code is:</p>
-                <h1 style="text-align: center; font-size: 36px; letter-spacing: 8px; color: #f1f5f9; background: rgba(59,130,246,0.1); border-radius: 12px; padding: 20px;">{otp}</h1>
-                <p style="text-align: center; color: #64748b; font-size: 14px;">This code expires in 10 minutes.<br>Do not share this code with anyone.</p>
+        <body style="font-family: 'Inter', sans-serif; background: #0a0e1a; color: #f1f5f9; padding: 40px; margin: 0;">
+            <div style="max-width: 500px; margin: 0 auto; background: #111827; border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="display: inline-block; width: 60px; height: 60px; background: rgba(59,130,246,0.1); border-radius: 50%; line-height: 60px; font-size: 30px; color: #3b82f6;">&#128737;</div>
+                </div>
+                <h2 style="text-align: center; color: #f1f5f9; margin-bottom: 10px; font-weight: 700;">{subject_prefix} Code</h2>
+                <p style="text-align: center; color: #94a3b8; margin-bottom: 30px; font-size: 16px;">Use the code below to securely verify your identity.</p>
+                
+                <div style="text-align: center; background: rgba(59,130,246,0.05); border: 1px dashed rgba(59,130,246,0.3); border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+                    <h1 style="margin: 0; font-size: 42px; letter-spacing: 10px; color: #3b82f6; font-family: monospace;">{otp}</h1>
+                </div>
+                
+                <p style="text-align: center; color: #64748b; font-size: 14px; line-height: 1.6;">
+                    This code will expire in <strong>10 minutes</strong>.<br>
+                    If you didn't request this code, you can safely ignore this email.
+                </p>
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; text-align: center;">
+                    <p style="color: #475569; font-size: 12px;">&copy; 2026 AI Plagiarism Checker. All rights reserved.</p>
+                </div>
             </div>
         </body>
         </html>
         """
 
         msg = Message(
-            subject="AI Plagiarism Checker — Email Verification OTP",
+            subject=f"AI Plagiarism Checker — {subject_prefix} OTP",
             recipients=[to_email],
             html=html_body,
         )
         
         # Dispatch email sending to a background thread
+        # Important: pass the current_app or app instance
+        from flask import current_app
         thread = threading.Thread(target=send_async_email, args=(app, msg))
+        thread.daemon = True # Ensure thread doesn't hang the process
         thread.start()
         
         return True
@@ -148,8 +164,10 @@ def register():
             flash("Email already registered. Please login.", "danger")
             return redirect(url_for("login", role=role))
 
-        # Generate OTP and store pending registration in session
+        # Generate OTP
         otp = generate_otp()
+        
+        # Store pending registration in session
         session["pending_registration"] = {
             "name": name,
             "email": email,
@@ -158,54 +176,83 @@ def register():
             "otp": otp,
             "timestamp": datetime.now().isoformat(),
         }
+        session.modified = True
 
         # Send OTP email
-        if send_otp_email(email, otp):
+        if send_otp_email(email, otp, subject_prefix="Registration"):
             flash("Verification code sent to your email!", "success")
         else:
-            flash("Email could not be sent, but you can still verify. Check the server console for your OTP.", "warning")
+            flash("Email system is busy, but we've generated your code. Check console for development.", "warning")
 
-        return render_template("verify_otp.html", email=email, role=role)
+        return redirect(url_for("verify_otp_page"))
 
     role = request.args.get("role", "student")
     return render_template("register.html", role=role)
 
 
-# ─── Verify OTP ───────────────────────────────────────────────────
-@app.route("/verify-otp", methods=["POST"])
-def verify_otp():
+@app.route("/verify-otp", methods=["GET", "POST"])
+def verify_otp_page():
     pending = session.get("pending_registration")
     if not pending:
         flash("Registration session expired. Please register again.", "danger")
         return redirect(url_for("register"))
 
-    # Collect OTP from 6 individual inputs
-    entered_otp = ""
-    for i in range(1, 7):
-        digit = request.form.get(f"d{i}", "")
-        entered_otp += digit
+    if request.method == "POST":
+        # Check expiry (10 minutes)
+        timestamp = datetime.fromisoformat(pending["timestamp"])
+        if (datetime.now() - timestamp).total_seconds() > 600:
+            session.pop("pending_registration", None)
+            flash("OTP expired. Please register again.", "danger")
+            return redirect(url_for("register"))
 
-    stored_otp = pending.get("otp", "")
+        # Collect OTP from 6 individual inputs (d1..d6)
+        entered_otp = "".join([request.form.get(f"d{i}", "") for i in range(1, 7)])
+        stored_otp = pending.get("otp", "")
 
-    if entered_otp == stored_otp:
-        # OTP correct — create user
-        user = {
-            "name": pending["name"],
-            "email": pending["email"],
-            "password": pending["password"],
-            "role": pending["role"],
-        }
-        users_collection.insert_one(user)
-        session.pop("pending_registration", None)
-        flash("Registration successful! Please login.", "success")
-        return redirect(url_for("login", role=pending["role"]))
-    else:
-        flash("Invalid OTP. Please try again.", "danger")
-        return render_template(
-            "verify_otp.html",
-            email=pending["email"],
-            role=pending["role"],
-        )
+        if entered_otp == stored_otp:
+            # OTP correct — create user
+            user = {
+                "name": pending["name"],
+                "email": pending["email"],
+                "password": pending["password"],
+                "role": pending["role"],
+                "created_at": datetime.now()
+            }
+            users_collection.insert_one(user)
+            session.pop("pending_registration", None)
+            flash("Registration successful! Please login.", "success")
+            return redirect(url_for("login", role=pending["role"]))
+        else:
+            flash("Invalid OTP. Please try again.", "danger")
+
+    return render_template("verify_otp.html", email=pending["email"], role=pending["role"])
+
+
+@app.route("/resend-otp")
+def resend_otp():
+    # Handle both registration and password reset resends
+    if "pending_registration" in session:
+        data = session["pending_registration"]
+        new_otp = generate_otp()
+        data["otp"] = new_otp
+        data["timestamp"] = datetime.now().isoformat()
+        session.modified = True
+        send_otp_email(data["email"], new_otp, subject_prefix="Registration")
+        flash("A new registration code has been sent!", "success")
+        return redirect(url_for("verify_otp_page"))
+        
+    elif "reset_password" in session:
+        data = session["reset_password"]
+        new_otp = generate_otp()
+        data["otp"] = new_otp
+        data["timestamp"] = datetime.now().isoformat()
+        session.modified = True
+        send_otp_email(data["email"], new_otp, subject_prefix="Password Reset")
+        flash("A new reset code has been sent!", "success")
+        return redirect(url_for("verify_reset_otp"))
+        
+    flash("No active request found to resend code.", "danger")
+    return redirect(url_for("index"))
 
 
 # ─── Forgot Password ───────────────────────────────────────────────
@@ -225,13 +272,15 @@ def forgot_password():
         session["reset_password"] = {
             "email": email,
             "otp": otp,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "verified": False
         }
+        session.modified = True
 
-        if send_otp_email(email, otp):
+        if send_otp_email(email, otp, subject_prefix="Password Reset"):
             flash("A password reset code has been sent to your email.", "success")
         else:
-            flash("Email could not be sent, but you can still verify. Check the server console for your OTP.", "warning")
+            flash("Email system busy. Please check console or try again.", "warning")
 
         return redirect(url_for("verify_reset_otp"))
 

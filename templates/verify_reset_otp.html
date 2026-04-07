@@ -5,94 +5,83 @@
     <div class="col-md-5 col-lg-4">
         <div class="glass-card p-4">
             <div class="text-center mb-4">
-                <div class="icon-circle mb-3 mx-auto" style="color: var(--text-primary); border-color: rgba(255, 255, 255, 0.2);">
-                    <i class="bi bi-shield-lock"></i>
+                <div class="icon-circle mb-3 mx-auto" style="color: #3b82f6; border-color: rgba(59, 130, 246, 0.2); background: rgba(59, 130, 246, 0.1);">
+                    <i class="bi bi-shield-lock-fill"></i>
                 </div>
                 <h3 class="mt-2 mb-1">Verify OTP</h3>
-                <p class="text-muted small">We've sent a 6-digit code to <strong>{{ email }}</strong>.<br>It will expire in 5 minutes.</p>
+                <p class="small" style="color: #f1f5f9; opacity: 0.9;">We've sent a 6-digit code to <strong>{{ email }}</strong>.<br>It will expire in 10 minutes.</p>
             </div>
 
-            <form method="POST" action="{{ url_for('verify_reset_otp') }}">
+            <form method="POST" id="otpForm">
                 <div class="otp-container mt-4 mb-4">
-                    <input type="text" class="otp-input" name="d1" maxlength="1" required autocomplete="off" autofocus>
-                    <input type="text" class="otp-input" name="d2" maxlength="1" required autocomplete="off" disabled>
-                    <input type="text" class="otp-input" name="d3" maxlength="1" required autocomplete="off" disabled>
-                    <input type="text" class="otp-input" name="d4" maxlength="1" required autocomplete="off" disabled>
-                    <input type="text" class="otp-input" name="d5" maxlength="1" required autocomplete="off" disabled>
-                    <input type="text" class="otp-input" name="d6" maxlength="1" required autocomplete="off" disabled>
+                    {% for i in range(1, 7) %}
+                    <input type="text" class="otp-input" name="d{{ i }}" id="d{{ i }}" maxlength="1" required autocomplete="off" {% if i == 1 %}autofocus{% endif %} inputmode="numeric">
+                    {% endfor %}
                 </div>
 
-                <button type="submit" class="btn btn-secondary w-100 mb-3" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="bi bi-check-circle me-1"></i> Verify Code
+                <button type="submit" id="verifyBtn" class="btn btn-gradient-blue w-100 mb-3">
+                    <span class="btn-text"><i class="bi bi-check-circle-fill me-1"></i> Verify Code</span>
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 </button>
             </form>
             
-            <p class="text-center small mb-0">
-                <a href="{{ url_for('login') }}" style="color: var(--text-muted);"><i class="bi bi-x-circle me-1"></i> Cancel Reset</a>
-            </p>
+            <div class="text-center mt-3">
+                <p class="small mb-1" style="color:var(--text-muted)">Didn't receive the code?</p>
+                <a href="{{ url_for('resend_otp') }}" class="btn btn-sm btn-outline-light px-3 mb-3" style="border-radius: 20px; font-size: 12px; border-color: rgba(255,255,255,0.2);">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Resend Code
+                </a>
+                <br>
+                <a href="{{ url_for('login') }}" style="color: var(--text-muted); font-size: 13px;"><i class="bi bi-x-circle me-1"></i> Cancel Reset</a>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    // OTP script identical to register logic for ease of use
     document.addEventListener("DOMContentLoaded", () => {
         const inputs = document.querySelectorAll(".otp-input");
+        const form = document.getElementById("otpForm");
 
         inputs.forEach((input, index) => {
-            // Handle input
+            // Handle typing
             input.addEventListener("input", (e) => {
-                if (e.target.value.length > 1) {
-                    e.target.value = e.target.value.substring(0, 1);
-                }
-                
-                // Allow only numbers
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                const val = e.target.value.replace(/[^0-9]/g, '');
+                e.target.value = val;
 
-                if (e.target.value !== "") {
-                    if (index < inputs.length - 1) {
-                        inputs[index + 1].disabled = false;
-                        inputs[index + 1].focus();
-                    }
+                if (val !== "" && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
                 }
             });
 
             // Handle backspace
             input.addEventListener("keydown", (e) => {
-                if (e.key === "Backspace" && e.target.value === "") {
-                    if (index > 0) {
-                        inputs[index - 1].focus();
-                        inputs[index - 1].value = "";
-                    }
+                if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+                    inputs[index - 1].focus();
                 }
             });
 
             // Handle paste
             input.addEventListener("paste", (e) => {
                 e.preventDefault();
-                const pastedData = e.clipboardData.getData("text").trim().replace(/[^0-9]/g, '');
-                
-                if (pastedData.length > 0) {
-                    for (let i = 0; i < Math.min(pastedData.length, inputs.length - index); i++) {
-                        inputs[index + i].disabled = false;
-                        inputs[index + i].value = pastedData[i];
-                    }
-                    
-                    const nextIndex = index + pastedData.length;
-                    if (nextIndex < inputs.length) {
-                        inputs[nextIndex].disabled = false;
-                        inputs[nextIndex].focus();
-                    } else {
-                        inputs[inputs.length - 1].focus();
-                    }
+                const data = e.clipboardData.getData("text").replace(/[^0-9]/g, '').split("");
+                if (data.length > 0) {
+                    data.forEach((char, i) => {
+                        if (index + i < inputs.length) {
+                            inputs[index + i].value = char;
+                        }
+                    });
+                    const nextIndex = Math.min(index + data.length, inputs.length - 1);
+                    inputs[nextIndex].focus();
                 }
             });
         });
-        
-        // Focus first input automatically
-        if (inputs.length > 0) {
-            inputs[0].focus();
-        }
+
+        form.addEventListener('submit', function() {
+            const btn = document.getElementById('verifyBtn');
+            btn.disabled = true;
+            btn.querySelector('.btn-text').classList.add('d-none');
+            btn.querySelector('.spinner-border').classList.remove('d-none');
+        });
     });
 </script>
 {% endblock %}
