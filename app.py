@@ -1,10 +1,12 @@
 import os
 import re
 import random
-import resend
+import threading
+import smtplib
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
+from flask_mail import Mail, Message
 from bson.objectid import ObjectId
 from db import users_collection, assignments_collection, submissions_collection, classes_collection, student_classes_collection
 from utils.text_extractor import extract_text
@@ -26,10 +28,16 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
 
-# ─── Resend Setup ──────────────────────────────────────────────────
-resend.api_key = os.environ.get("RESEND_API_KEY")
-SENDER_NAME = "AI Plagiarism Checker"
-SENDER_EMAIL = "onboarding@resend.dev"  # Default for trial, update if domain is verified
+# ─── Flask-Mail Config (Gmail SMTP with Port 465 SSL Fix) ─────────
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_TIMEOUT"] = 10
+mail = Mail(app)
 
 
 def allowed_file(filename):
@@ -59,7 +67,7 @@ def is_valid_email(email):
 
 
 def send_otp_email(to_email, otp, subject_prefix="Verification"):
-    """Send OTP via Resend API."""
+    """Send OTP via Flask-Mail (Gmail SMTP Port 465 SSL) synchronously."""
     print(f"\n" + "="*50)
     print(f"[DEBUG] Attempting to send {subject_prefix} OTP to: {to_email}")
     print(f"[DEBUG] OTP Code: {otp}")
@@ -92,21 +100,34 @@ def send_otp_email(to_email, otp, subject_prefix="Verification"):
         </html>
         """
 
-        params = {
-            "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
-            "to": [to_email],
-            "subject": f"AI Plagiarism Checker — {subject_prefix} OTP",
-            "html": html_body,
-        }
+        msg = Message(
+            subject=f"AI Plagiarism Checker — {subject_prefix} OTP",
+            recipients=[to_email],
+            html=html_body,
+        )
+        
+        # ─── Render Port 465 SSL Pre-flight Check ───
+        print(f"[RENDER-LOG] Testing SMTP Port 465 (SSL) connection to {to_email}...")
+        try:
+            # For SSL (Port 465), we use SMTP_SSL
+            smtp_server = smtplib.SMTP_SSL(app.config["MAIL_SERVER"], app.config["MAIL_PORT"], timeout=10)
+            smtp_server.login(app.config["MAIL_USERNAME"], app.config["MAIL_PASSWORD"])
+            print("[RENDER-LOG] SMTP Auth success! Proceeding to send...")
+            smtp_server.quit()
+        except Exception as smtp_err:
+            print(f"[RENDER-LOG] SMTP Connection Test Failed: {smtp_err}")
 
-        print(f"[RESEND-LOG] Sending email to {to_email}...")
-        email_response = resend.Emails.send(params)
-        print(f"[RESEND-LOG] Success! ID: {email_response.get('id')}")
+        # Send synchronously within app context
+        with app.app_context():
+            mail.send(msg)
+            
+        print(f"[RENDER-LOG] Mail send attempt SUCCESS! (Recipient: {to_email})")
         return True
         
     except Exception as e:
-        print(f"\n[RESEND-LOG] !!! RESEND ERROR !!!")
-        print(f"[RESEND-LOG] Exception Details: {str(e)}")
+        print(f"\n[RENDER-LOG] !!! MAIL ERROR !!!")
+        print(f"[RENDER-LOG] Exception Details: {str(e)}")
+        print(f"[RENDER-LOG] If this is Port 465 SSL, please verify 'Allow Less Secure Apps' or App Password is correct.\n")
         return False
 
 
