@@ -192,12 +192,12 @@ def register():
         }
         session.modified = True
 
-        # Send OTP email
-        if send_otp_email(email, otp, subject_prefix="Registration"):
-            flash("Verification code sent to your email!", "success")
-        else:
-            flash("Email system is busy, but we've generated your code. Check console for development.", "warning")
+        # Send OTP email in background thread
+        thread = threading.Thread(target=send_otp_email, args=(email, otp, "Registration"))
+        thread.start()
 
+        # Immediately flash success and redirect
+        flash("Verification code sent to your email!", "success")
         return redirect(url_for("verify_otp_page"))
 
     role = request.args.get("role", "student")
@@ -251,7 +251,8 @@ def resend_otp():
         data["otp"] = new_otp
         data["timestamp"] = datetime.now().isoformat()
         session.modified = True
-        send_otp_email(data["email"], new_otp, subject_prefix="Registration")
+        # Send in background
+        threading.Thread(target=send_otp_email, args=(data["email"], new_otp, "Registration")).start()
         flash("A new registration code has been sent!", "success")
         return redirect(url_for("verify_otp_page"))
         
@@ -261,7 +262,8 @@ def resend_otp():
         data["otp"] = new_otp
         data["timestamp"] = datetime.now().isoformat()
         session.modified = True
-        send_otp_email(data["email"], new_otp, subject_prefix="Password Reset")
+        # Send in background
+        threading.Thread(target=send_otp_email, args=(data["email"], new_otp, "Password Reset")).start()
         flash("A new reset code has been sent!", "success")
         return redirect(url_for("verify_reset_otp"))
         
@@ -281,7 +283,7 @@ def forgot_password():
             flash("Email not found. Please check and try again.", "danger")
             return redirect(url_for("forgot_password", role=role))
 
-        # Generate and send OTP
+        # Generate and send OTP in background
         otp = generate_otp()
         session["reset_password"] = {
             "email": email,
@@ -291,11 +293,8 @@ def forgot_password():
         }
         session.modified = True
 
-        if send_otp_email(email, otp, subject_prefix="Password Reset"):
-            flash("A password reset code has been sent to your email.", "success")
-        else:
-            flash("Email system busy. Please check console or try again.", "warning")
-
+        threading.Thread(target=send_otp_email, args=(email, otp, "Password Reset")).start()
+        flash("A password reset code has been sent to your email.", "success")
         return redirect(url_for("verify_reset_otp"))
 
     role = request.args.get("role", "student")
