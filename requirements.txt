@@ -5,6 +5,6 @@ python-docx
 PyPDF2
 scikit-learn
 google-generativeai
-Flask-Mail
+resend
 python-dotenv
 certifi

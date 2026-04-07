@@ -1,12 +1,10 @@
 import os
 import re
 import random
-import threading
-import smtplib
+import resend
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
-from flask_mail import Mail, Message
 from bson.objectid import ObjectId
 from db import users_collection, assignments_collection, submissions_collection, classes_collection, student_classes_collection
 from utils.text_extractor import extract_text
@@ -28,16 +26,10 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
 
-# ─── Flask-Mail Config (Gmail SMTP) ───────────────────────────────
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USE_SSL"] = False
-app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
-app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
-app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
-app.config["MAIL_TIMEOUT"] = 10
-mail = Mail(app)
+# ─── Resend Setup ──────────────────────────────────────────────────
+resend.api_key = os.environ.get("RESEND_API_KEY")
+SENDER_NAME = "AI Plagiarism Checker"
+SENDER_EMAIL = "onboarding@resend.dev"  # Default for trial, update if domain is verified
 
 
 def allowed_file(filename):
@@ -67,8 +59,7 @@ def is_valid_email(email):
 
 
 def send_otp_email(to_email, otp, subject_prefix="Verification"):
-    """Send OTP via Flask-Mail (Gmail SMTP) synchronously with debug logging."""
-    # Always print OTP to console as a development/demo fallback
+    """Send OTP via Resend API."""
     print(f"\n" + "="*50)
     print(f"[DEBUG] Attempting to send {subject_prefix} OTP to: {to_email}")
     print(f"[DEBUG] OTP Code: {otp}")
@@ -101,37 +92,21 @@ def send_otp_email(to_email, otp, subject_prefix="Verification"):
         </html>
         """
 
-        msg = Message(
-            subject=f"AI Plagiarism Checker — {subject_prefix} OTP",
-            recipients=[to_email],
-            html=html_body,
-        )
-        
-        # ─── Render Pre-flight SMTP Check ───
-        print(f"[RENDER-LOG] Testing SMTP connection before sending to {to_email}...")
-        try:
-            smtp_server = smtplib.SMTP(app.config["MAIL_SERVER"], app.config["MAIL_PORT"], timeout=10)
-            smtp_server.starttls()
-            smtp_server.login(app.config["MAIL_USERNAME"], app.config["MAIL_PASSWORD"])
-            print("[RENDER-LOG] SMTP login success! Proceeding to send...")
-            smtp_server.quit()
-        except Exception as smtp_err:
-            print(f"[RENDER-LOG] SMTP Connection Test Failed: {smtp_err}")
-            # We don't return False here, we try with Flask-Mail anyway but we have the log.
+        params = {
+            "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
+            "to": [to_email],
+            "subject": f"AI Plagiarism Checker — {subject_prefix} OTP",
+            "html": html_body,
+        }
 
-        print("[RENDER-LOG] Before mail send attempt...")
-        
-        # Send synchronously within app context for clarity
-        with app.app_context():
-            mail.send(msg)
-            
-        print(f"[RENDER-LOG] After mail send attempt. Success! (Check: {to_email})")
+        print(f"[RESEND-LOG] Sending email to {to_email}...")
+        email_response = resend.Emails.send(params)
+        print(f"[RESEND-LOG] Success! ID: {email_response.get('id')}")
         return True
         
     except Exception as e:
-        print(f"\n[RENDER-LOG] !!! MAIL ERROR !!!")
-        print(f"[RENDER-LOG] Exception Details: {str(e)}")
-        print(f"[RENDER-LOG] If this is a timeout, check Render Outbound IP settings or use an API-based mail service (SendGrid).\n")
+        print(f"\n[RESEND-LOG] !!! RESEND ERROR !!!")
+        print(f"[RESEND-LOG] Exception Details: {str(e)}")
         return False
 
 
