@@ -31,6 +31,7 @@ ALLOWED_EXTENSIONS = {"pdf", "docx"}
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
@@ -63,22 +64,13 @@ def is_valid_email(email):
     return re.match(pattern, email) is not None
 
 
-def send_async_email(app_instance, msg):
-    """Helper to send email in a background thread with the correct app context."""
-    with app_instance.app_context():
-        try:
-            mail.send(msg)
-            print(f"[EMAIL SUCCESS] Transcript sent to {msg.recipients}")
-        except Exception as e:
-            print(f"[EMAIL ERROR] Failed to send background email: {e}")
-
-
 def send_otp_email(to_email, otp, subject_prefix="Verification"):
-    """Send OTP via Flask-Mail (Gmail SMTP) in the background. Falls back to console."""
+    """Send OTP via Flask-Mail (Gmail SMTP) synchronously with debug logging."""
     # Always print OTP to console as a development/demo fallback
-    print(f"\n{'='*50}")
-    print(f"[DEV FALLBACK] {subject_prefix} OTP for {to_email}: {otp}")
-    print(f"{'='*50}\n")
+    print(f"\n" + "="*50)
+    print(f"[DEBUG] Attempting to send {subject_prefix} OTP to: {to_email}")
+    print(f"[DEBUG] OTP Code: {otp}")
+    print(f"="*50 + "\n")
 
     try:
         html_body = f"""
@@ -113,16 +105,19 @@ def send_otp_email(to_email, otp, subject_prefix="Verification"):
             html=html_body,
         )
         
-        # Dispatch email sending to a background thread
-        # Important: pass the current_app or app instance
-        from flask import current_app
-        thread = threading.Thread(target=send_async_email, args=(app, msg))
-        thread.daemon = True # Ensure thread doesn't hang the process
-        thread.start()
+        print(f"[DEBUG] Sending email via {app.config['MAIL_SERVER']}...")
         
+        # Send synchronously within app context for clarity
+        with app.app_context():
+            mail.send(msg)
+            
+        print(f"[DEBUG] Email send attempt complete. Check inbox: {to_email}")
         return True
+        
     except Exception as e:
-        print(f"[EMAIL ERROR] Failed to dispatch background email to {to_email}: {e}")
+        print(f"\n[DEBUG] !!! MAIL ERROR !!!")
+        print(f"[DEBUG] Exception Details: {str(e)}")
+        print(f"[DEBUG] Ensure you are using a GMAIL APP PASSWORD if 2FA is enabled.\n")
         return False
 
 
@@ -132,10 +127,19 @@ def index():
     return render_template("index.html")
 
 
-# ─── About Page ────────────────────────────────────────────────────
-@app.route("/about")
-def about_page():
-    return render_template("about.html")
+@app.route("/test-mail")
+def test_mail():
+    """Route to manually test OTP email sending."""
+    test_email = os.environ.get("MAIL_USERNAME")
+    test_otp = "123456"
+    print(f"[DEBUG] Triggering test mail to {test_email}...")
+    
+    if send_otp_email(test_email, test_otp, subject_prefix="TEST"):
+        return f"<h1>Test email attempt finished!</h1><p>Check console for debug logs. If successful, check inbox for: {test_email}</p>"
+    else:
+        return "<h1>Test email failed!</h1><p>Check console for the detailed error message.</p>"
+
+
 
 
 # ─── Help Page ─────────────────────────────────────────────────────
