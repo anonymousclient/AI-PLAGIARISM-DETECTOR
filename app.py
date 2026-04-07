@@ -2,6 +2,7 @@ import os
 import re
 import random
 import threading
+import smtplib
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
@@ -35,6 +36,7 @@ app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_TIMEOUT"] = 10
 mail = Mail(app)
 
 
@@ -105,19 +107,31 @@ def send_otp_email(to_email, otp, subject_prefix="Verification"):
             html=html_body,
         )
         
-        print(f"[DEBUG] Sending email via {app.config['MAIL_SERVER']}...")
+        # ─── Render Pre-flight SMTP Check ───
+        print(f"[RENDER-LOG] Testing SMTP connection before sending to {to_email}...")
+        try:
+            smtp_server = smtplib.SMTP(app.config["MAIL_SERVER"], app.config["MAIL_PORT"], timeout=10)
+            smtp_server.starttls()
+            smtp_server.login(app.config["MAIL_USERNAME"], app.config["MAIL_PASSWORD"])
+            print("[RENDER-LOG] SMTP login success! Proceeding to send...")
+            smtp_server.quit()
+        except Exception as smtp_err:
+            print(f"[RENDER-LOG] SMTP Connection Test Failed: {smtp_err}")
+            # We don't return False here, we try with Flask-Mail anyway but we have the log.
+
+        print("[RENDER-LOG] Before mail send attempt...")
         
         # Send synchronously within app context for clarity
         with app.app_context():
             mail.send(msg)
             
-        print(f"[DEBUG] Email send attempt complete. Check inbox: {to_email}")
+        print(f"[RENDER-LOG] After mail send attempt. Success! (Check: {to_email})")
         return True
         
     except Exception as e:
-        print(f"\n[DEBUG] !!! MAIL ERROR !!!")
-        print(f"[DEBUG] Exception Details: {str(e)}")
-        print(f"[DEBUG] Ensure you are using a GMAIL APP PASSWORD if 2FA is enabled.\n")
+        print(f"\n[RENDER-LOG] !!! MAIL ERROR !!!")
+        print(f"[RENDER-LOG] Exception Details: {str(e)}")
+        print(f"[RENDER-LOG] If this is a timeout, check Render Outbound IP settings or use an API-based mail service (SendGrid).\n")
         return False
 
 
