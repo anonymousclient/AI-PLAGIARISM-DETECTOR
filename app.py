@@ -28,11 +28,11 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Allowed file extensions
 ALLOWED_EXTENSIONS = {"pdf", "docx"}
 
-# ─── Flask-Mail Config (Gmail SMTP with Port 465 SSL Fix) ─────────
+# ─── Flask-Mail Config (Gmail SMTP) ───────────────────────────────
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
@@ -67,7 +67,8 @@ def is_valid_email(email):
 
 
 def send_otp_email(to_email, otp, subject_prefix="Verification"):
-    """Send OTP via Flask-Mail (Gmail SMTP Port 465 SSL) synchronously."""
+    """Send OTP via Flask-Mail (Gmail SMTP) synchronously with debug logging."""
+    # Always print OTP to console as a development/demo fallback
     print(f"\n" + "="*50)
     print(f"[DEBUG] Attempting to send {subject_prefix} OTP to: {to_email}")
     print(f"[DEBUG] OTP Code: {otp}")
@@ -106,28 +107,31 @@ def send_otp_email(to_email, otp, subject_prefix="Verification"):
             html=html_body,
         )
         
-        # ─── Render Port 465 SSL Pre-flight Check ───
-        print(f"[RENDER-LOG] Testing SMTP Port 465 (SSL) connection to {to_email}...")
+        # ─── Render Pre-flight SMTP Check ───
+        print(f"[RENDER-LOG] Testing SMTP connection before sending to {to_email}...")
         try:
-            # For SSL (Port 465), we use SMTP_SSL
-            smtp_server = smtplib.SMTP_SSL(app.config["MAIL_SERVER"], app.config["MAIL_PORT"], timeout=10)
+            smtp_server = smtplib.SMTP(app.config["MAIL_SERVER"], app.config["MAIL_PORT"], timeout=10)
+            smtp_server.starttls()
             smtp_server.login(app.config["MAIL_USERNAME"], app.config["MAIL_PASSWORD"])
-            print("[RENDER-LOG] SMTP Auth success! Proceeding to send...")
+            print("[RENDER-LOG] SMTP login success! Proceeding to send...")
             smtp_server.quit()
         except Exception as smtp_err:
             print(f"[RENDER-LOG] SMTP Connection Test Failed: {smtp_err}")
+            # We don't return False here, we try with Flask-Mail anyway but we have the log.
 
-        # Send synchronously within app context
+        print("[RENDER-LOG] Before mail send attempt...")
+        
+        # Send synchronously within app context for clarity
         with app.app_context():
             mail.send(msg)
             
-        print(f"[RENDER-LOG] Mail send attempt SUCCESS! (Recipient: {to_email})")
+        print(f"[RENDER-LOG] After mail send attempt. Success! (Check: {to_email})")
         return True
         
     except Exception as e:
         print(f"\n[RENDER-LOG] !!! MAIL ERROR !!!")
         print(f"[RENDER-LOG] Exception Details: {str(e)}")
-        print(f"[RENDER-LOG] If this is Port 465 SSL, please verify 'Allow Less Secure Apps' or App Password is correct.\n")
+        print(f"[RENDER-LOG] If this is a timeout, check Render Outbound IP settings or use an API-based mail service (SendGrid).\n")
         return False
 
 
@@ -192,12 +196,12 @@ def register():
         }
         session.modified = True
 
-        # Send OTP email in background thread
-        thread = threading.Thread(target=send_otp_email, args=(email, otp, "Registration"))
-        thread.start()
+        # Send OTP email
+        if send_otp_email(email, otp, subject_prefix="Registration"):
+            flash("Verification code sent to your email!", "success")
+        else:
+            flash("Email system is busy, but we've generated your code. Check console for development.", "warning")
 
-        # Immediately flash success and redirect
-        flash("Verification code sent to your email!", "success")
         return redirect(url_for("verify_otp_page"))
 
     role = request.args.get("role", "student")
@@ -251,8 +255,7 @@ def resend_otp():
         data["otp"] = new_otp
         data["timestamp"] = datetime.now().isoformat()
         session.modified = True
-        # Send in background
-        threading.Thread(target=send_otp_email, args=(data["email"], new_otp, "Registration")).start()
+        send_otp_email(data["email"], new_otp, subject_prefix="Registration")
         flash("A new registration code has been sent!", "success")
         return redirect(url_for("verify_otp_page"))
         
@@ -262,8 +265,7 @@ def resend_otp():
         data["otp"] = new_otp
         data["timestamp"] = datetime.now().isoformat()
         session.modified = True
-        # Send in background
-        threading.Thread(target=send_otp_email, args=(data["email"], new_otp, "Password Reset")).start()
+        send_otp_email(data["email"], new_otp, subject_prefix="Password Reset")
         flash("A new reset code has been sent!", "success")
         return redirect(url_for("verify_reset_otp"))
         
@@ -283,7 +285,7 @@ def forgot_password():
             flash("Email not found. Please check and try again.", "danger")
             return redirect(url_for("forgot_password", role=role))
 
-        # Generate and send OTP in background
+        # Generate and send OTP
         otp = generate_otp()
         session["reset_password"] = {
             "email": email,
@@ -293,8 +295,11 @@ def forgot_password():
         }
         session.modified = True
 
-        threading.Thread(target=send_otp_email, args=(email, otp, "Password Reset")).start()
-        flash("A password reset code has been sent to your email.", "success")
+        if send_otp_email(email, otp, subject_prefix="Password Reset"):
+            flash("A password reset code has been sent to your email.", "success")
+        else:
+            flash("Email system busy. Please check console or try again.", "warning")
+
         return redirect(url_for("verify_reset_otp"))
 
     role = request.args.get("role", "student")
